@@ -1,8 +1,8 @@
 package logistica.dao;
 
-import com.lynx.EFintus.logistica.Utility.Em;
-import com.lynx.EFintus.logistica.dao.interfaces.FornituraDao;
-import com.lynx.EFintus.logistica.entities.Fornitura;
+import logistica.Utility.Em;
+import logistica.dao.interfaces.FornituraDao;
+import logistica.entities.Fornitura;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
