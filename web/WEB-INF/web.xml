@@ -18,7 +18,7 @@
     </listener>
 
     <servlet>
-        <servlet-name>resteasy-servlet-example</servlet-name>
+        <servlet-name>resteasy-servlet</servlet-name>
         <servlet-class>
             org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
         </servlet-class>
@@ -28,7 +28,7 @@
         </init-param>
     </servlet>
     <servlet-mapping>
-        <servlet-name>resteasy-servlet-example</servlet-name>
+        <servlet-name>resteasy-servlet</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
