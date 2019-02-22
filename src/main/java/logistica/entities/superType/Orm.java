@@ -1,4 +1,6 @@
 package logistica.entities.superType;
 
-public interface Orm {
+import java.io.Serializable;
+
+public interface Orm extends Serializable {
 }
