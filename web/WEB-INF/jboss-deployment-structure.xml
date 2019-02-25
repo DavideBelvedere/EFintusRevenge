@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-deployment-structure>
 	<deployment>
+		<dependencies>
+			<module name="org.hibernate" />
+		</dependencies>
 		<exclude-subsystems>
 			<subsystem name="resteasy" />
 		</exclude-subsystems>
@@ -8,7 +11,6 @@
 			<module name="javaee.api" />
 			<module name="javax.ws.rs.api" />
 			<module name="org.jboss.resteasy.resteasy-jaxrs" />
-			<module name="org.dom4j" />
 		</exclusions>
 		<local-last value="true" />
 	</deployment>

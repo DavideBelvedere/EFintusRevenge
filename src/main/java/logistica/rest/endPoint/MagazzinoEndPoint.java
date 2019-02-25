@@ -11,8 +11,7 @@ import javax.ws.rs.core.MediaType;
 @Path("/magazzino")
 public class MagazzinoEndPoint {
 
-    @Inject
-    MagazzinoDaoImpl magazzinoDao;
+	MagazzinoDaoImpl magazzinoDao = new MagazzinoDaoImpl();
 
     @GET
     @Path("/getAll")
@@ -20,6 +19,12 @@ public class MagazzinoEndPoint {
     @Produces(MediaType.APPLICATION_JSON)
     public MagazzinoResponse retrieveAllWarehouse() {
         MagazzinoResponse response = new MagazzinoResponse();
+        if( magazzinoDao.getAllWarehouse() == null) {
+        	System.out.println("------------------- NULLOO");
+        } else {
+            System.out.println("---------  Response Magazzino   ------------" + magazzinoDao.getAllWarehouse());
+
+        }
         response.setMagazzini(magazzinoDao.getAllWarehouse());
         return response;
     }

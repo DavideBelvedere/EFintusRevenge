@@ -14,6 +14,6 @@ public class MagazzinoDaoImplTest {
     public void getAllWarehouse() {
         MagazzinoDaoImpl magazzinoDao= new MagazzinoDaoImpl();
         List<Magazzino> magazzini= magazzinoDao.getAllWarehouse();
-        System.out.println();
+        System.out.println(magazzini.size());
     }
 }
