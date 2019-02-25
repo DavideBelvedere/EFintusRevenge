@@ -1,98 +1,124 @@
 package com.lynx.EFintus.commercio.classes;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "produttore")
 public class Produttore {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    private Integer id;
+
+    @Column(name = "Nome")
     private String nome;
+
+    @Column(name = "Indirizzo")
     private String indirizzo;
+
+    @Column(name = "Città")
     private String citta;
+
+    @Column(name = "cap")
     private String cap;
+
+    @Column(name = "Telefono")
     private String telefono;
+
+    @Column(name = "Email")
     private String email;
+
+    @Column(name = "Descrizione")
     private String descrizione;
+
+    @Column(name = "PartitaIVA")
     private String partitaIVA;
 
-    public Produttore(int id, String nome, String indirizzo, String citta, String cap, String telefono, String email, String descrizione, String partitaIVA) {
-        this.id = id;
-        this.nome = nome;
-        this.indirizzo = indirizzo;
-        this.citta = citta;
-        this.cap = cap;
-        this.telefono = telefono;
-        this.email = email;
-        this.descrizione = descrizione;
-        this.partitaIVA = partitaIVA;
+    @OneToMany(mappedBy = "prodotto")
+    List<Prodotto> prodotti = new ArrayList<Prodotto>();
+
+    public Produttore() {
     }
 
-    public int getId() {
-        return id;
+    public Integer getId() {
+	return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(Integer id) {
+	this.id = id;
     }
 
     public String getNome() {
-        return nome;
+	return nome;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+	this.nome = nome;
     }
 
     public String getIndirizzo() {
-        return indirizzo;
+	return indirizzo;
     }
 
     public void setIndirizzo(String indirizzo) {
-        this.indirizzo = indirizzo;
+	this.indirizzo = indirizzo;
     }
 
     public String getCitta() {
-        return citta;
+	return citta;
     }
 
     public void setCitta(String citta) {
-        this.citta = citta;
+	this.citta = citta;
     }
 
     public String getCap() {
-        return cap;
+	return cap;
     }
 
     public void setCap(String cap) {
-        this.cap = cap;
+	this.cap = cap;
     }
 
     public String getTelefono() {
-        return telefono;
+	return telefono;
     }
 
     public void setTelefono(String telefono) {
-        this.telefono = telefono;
+	this.telefono = telefono;
     }
 
     public String getEmail() {
-        return email;
+	return email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+	this.email = email;
     }
 
     public String getDescrizione() {
-        return descrizione;
+	return descrizione;
     }
 
     public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
+	this.descrizione = descrizione;
     }
 
     public String getPartitaIVA() {
-        return partitaIVA;
+	return partitaIVA;
     }
 
     public void setPartitaIVA(String partitaIVA) {
-        this.partitaIVA = partitaIVA;
+	this.partitaIVA = partitaIVA;
     }
 }

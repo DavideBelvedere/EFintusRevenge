@@ -1,30 +1,48 @@
 package com.lynx.EFintus.commercio.classes;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.lynx.EFintus.commercio.classes.primarykeys.TagsProdottoPK;
+
+@Entity
+@Table(name = "tags_prodotto")
+@IdClass(TagsProdottoPK.class)
 public class TagsProdotto {
 
-    private int idTags;
-    private int idProdotto;
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Id_Tags")
+    private Tags tags;
 
-    public TagsProdotto(int idTags, int idProdotto) {
-	super();
-	this.idTags = idTags;
-	this.idProdotto = idProdotto;
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Id_Prodotto")
+    private Prodotto prodotto;
+
+    public TagsProdotto() {
     }
 
-    public int getIdTags() {
-	return idTags;
+    public Tags getTags() {
+	return tags;
     }
 
-    public void setIdTags(int idTags) {
-	this.idTags = idTags;
+    public void setTags(Tags tags) {
+	this.tags = tags;
     }
 
-    public int getIdProdotto() {
-	return idProdotto;
+    public Prodotto getProdotto() {
+	return prodotto;
     }
 
-    public void setIdProdotto(int idProdotto) {
-	this.idProdotto = idProdotto;
+    public void setProdotto(Prodotto prodotto) {
+	this.prodotto = prodotto;
     }
 
 }

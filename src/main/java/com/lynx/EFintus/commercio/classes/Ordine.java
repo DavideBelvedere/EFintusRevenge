@@ -1,23 +1,52 @@
 package com.lynx.EFintus.commercio.classes;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import logistica.entities.Corriere;
+
+@Entity
+@Table(name = "ordine")
 public class Ordine {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
     private int id;
+
+    @Column(name = "Data_ordine")
     private Date dataOrdine;
-    private int idUtente;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Column(name = "Id_utente")
+    private Utente utente;
+
+    @Column(name = "Stato")
     private String stato;
-    private int idCorriere;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Id_Corriere")
+    private Corriere corriere;
+
+    @Column(name = "Id_Trasporto")
     private int idTrasporto;
 
-    public Ordine(int id, Date dataOrdine, int idUtente, String stato, int idCorriere, int idTrasporto) {
-	this.id = id;
-	this.dataOrdine = dataOrdine;
-	this.idUtente = idUtente;
-	this.stato = stato;
-	this.idCorriere = idCorriere;
-	this.idTrasporto = idTrasporto;
+    @OneToMany(mappedBy = "recensione")
+    private List<Recensione> recensioni;
+
+    public Ordine() {
     }
 
     public int getId() {
@@ -36,12 +65,12 @@ public class Ordine {
 	this.dataOrdine = dataOrdine;
     }
 
-    public int getIdUtente() {
-	return idUtente;
+    public Utente getUtente() {
+	return utente;
     }
 
-    public void setIdUtente(int idUtente) {
-	this.idUtente = idUtente;
+    public void setUtente(Utente utente) {
+	this.utente = utente;
     }
 
     public String getStato() {
@@ -52,12 +81,12 @@ public class Ordine {
 	this.stato = stato;
     }
 
-    public int getIdCorriere() {
-	return idCorriere;
+    public Corriere getCorriere() {
+	return corriere;
     }
 
-    public void setIdCorriere(int idCorriere) {
-	this.idCorriere = idCorriere;
+    public void setCorriere(Corriere corriere) {
+	this.corriere = corriere;
     }
 
     public int getIdTrasporto() {

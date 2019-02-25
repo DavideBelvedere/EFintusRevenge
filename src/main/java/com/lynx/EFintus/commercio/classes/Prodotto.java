@@ -1,131 +1,165 @@
 package com.lynx.EFintus.commercio.classes;
 
-
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "prodotto")
 public class Prodotto {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    private Integer id;
+
+    @Column(name = "Nome")
     private String nome;
-    private int idProduttore;
-    private float prezzo;
-    private int idCategorie;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Id_Produttore")
+    private Integer idProduttore;
+
+    @Column(name = "Prezzo")
+    private Double prezzo;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "Id_Categorie")
+    private Integer idCategorie;
+
+    @Column(name = "Descrizione")
     private String descrizione;
+
+    @Column(name = "Misure")
     private String misure;
-    private float peso;
+
+    @Column(name = "Peso")
+    private Double peso;
+
+    @Column(name = "Colore")
     private String colore;
+
+    @Column(name = "pathImmagini")
     private String pathImmagini;
+
+    @Column(name = "DataInizioValidita")
     private Date dataInizioValidita;
+
+    @Column(name = "DataFineValidita")
     private Date dataFineValidita;
 
-    public Prodotto(int id, String nome, int idProduttore, float prezzo, int idCategorie, String descrizione, String misure, float peso, String colore, String pathImmagini, Date dataInizioValidita, Date dataFineValidita) {
-        this.id = id;
-        this.nome = nome;
-        this.idProduttore = idProduttore;
-        this.prezzo = prezzo;
-        this.idCategorie = idCategorie;
-        this.descrizione = descrizione;
-        this.misure = misure;
-        this.peso = peso;
-        this.colore = colore;
-        this.pathImmagini = pathImmagini;
-        this.dataInizioValidita = dataInizioValidita;
-        this.dataFineValidita = dataFineValidita;
+    private List<WishlistProdotto> wishlistProdottos = new ArrayList<>();
+    private List<OrdineProdotto> ordineProdottos = new ArrayList<>();
+    private List<TagsProdotto> tagsProdottos = new ArrayList<>();
+    private List<Recensione> recensioni = new ArrayList<>();
+
+    public Prodotto() {
     }
 
-    public int getId() {
-        return id;
+    public Integer getId() {
+	return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(Integer id) {
+	this.id = id;
     }
 
     public String getNome() {
-        return nome;
+	return nome;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+	this.nome = nome;
     }
 
-    public int getIdProduttore() {
-        return idProduttore;
+    public Integer getIdProduttore() {
+	return idProduttore;
     }
 
-    public void setIdProduttore(int idProduttore) {
-        this.idProduttore = idProduttore;
+    public void setIdProduttore(Integer idProduttore) {
+	this.idProduttore = idProduttore;
     }
 
-    public float getPrezzo() {
-        return prezzo;
+    public Double getPrezzo() {
+	return prezzo;
     }
 
-    public void setPrezzo(float prezzo) {
-        this.prezzo = prezzo;
+    public void setPrezzo(Double prezzo) {
+	this.prezzo = prezzo;
     }
 
-    public int getIdCategorie() {
-        return idCategorie;
+    public Integer getIdCategorie() {
+	return idCategorie;
     }
 
-    public void setIdCategorie(int idCategorie) {
-        this.idCategorie = idCategorie;
+    public void setIdCategorie(Integer idCategorie) {
+	this.idCategorie = idCategorie;
     }
 
     public String getDescrizione() {
-        return descrizione;
+	return descrizione;
     }
 
     public void setDescrizione(String descrizione) {
-        this.descrizione = descrizione;
+	this.descrizione = descrizione;
     }
 
     public String getMisure() {
-        return misure;
+	return misure;
     }
 
     public void setMisure(String misure) {
-        this.misure = misure;
+	this.misure = misure;
     }
 
-    public float getPeso() {
-        return peso;
+    public Double getPeso() {
+	return peso;
     }
 
-    public void setPeso(float peso) {
-        this.peso = peso;
+    public void setPeso(Double peso) {
+	this.peso = peso;
     }
 
     public String getColore() {
-        return colore;
+	return colore;
     }
 
     public void setColore(String colore) {
-        this.colore = colore;
+	this.colore = colore;
     }
 
     public String getPathImmagini() {
-        return pathImmagini;
+	return pathImmagini;
     }
 
     public void setPathImmagini(String pathImmagini) {
-        this.pathImmagini = pathImmagini;
+	this.pathImmagini = pathImmagini;
     }
 
     public Date getDataInizioValidita() {
-        return dataInizioValidita;
+	return dataInizioValidita;
     }
 
     public void setDataInizioValidita(Date dataInizioValidita) {
-        this.dataInizioValidita = dataInizioValidita;
+	this.dataInizioValidita = dataInizioValidita;
     }
 
     public Date getDataFineValidita() {
-        return dataFineValidita;
+	return dataFineValidita;
     }
 
     public void setDataFineValidita(Date dateFineValidita) {
-        this.dataFineValidita = dateFineValidita;
+	this.dataFineValidita = dateFineValidita;
     }
 }

@@ -1,28 +1,58 @@
 package com.lynx.EFintus.commercio.classes;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tags")
 public class Tags {
 
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "Id")
+    private Integer id;
+
+    @Column(name = "Nome")
     private String nome;
 
-    public Tags(int id, String nome) {
-        this.id = id;
-        this.nome = nome;
+    @OneToMany(mappedBy = "tags_prodotto")
+    private List<TagsProdotto> tagsProdottos = new ArrayList<>();
+
+    public Tags(Integer id, String nome) {
+	this.id = id;
+	this.nome = nome;
     }
 
-    public int getId() {
-        return id;
+    public Integer getId() {
+	return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(Integer id) {
+	this.id = id;
     }
 
     public String getNome() {
-        return nome;
+	return nome;
     }
 
     public void setNome(String nome) {
-        this.nome = nome;
+	this.nome = nome;
     }
+
+    public List<TagsProdotto> getTagsProdottos() {
+	return tagsProdottos;
+    }
+
+    public void setTagsProdottos(List<TagsProdotto> tagsProdottos) {
+	this.tagsProdottos = tagsProdottos;
+    }
+
 }
