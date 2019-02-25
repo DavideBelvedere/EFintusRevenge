@@ -10,7 +10,7 @@ public class Ordine implements Orm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_ordine")
-    private int id;
+    private Integer id;
 
     // one To one and many to one should be always lazy (the other are default lazy)--> eager load automatically
     // the entities relationed for lazy they dug up the values when you effectively call them
@@ -20,13 +20,13 @@ public class Ordine implements Orm {
     private Corriere corriere;
 
     @Column(name = "id_trasporto")
-    private int id_trasporto;
+    private Integer id_trasporto;
 
     public Ordine(){
 
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -38,11 +38,11 @@ public class Ordine implements Orm {
         this.corriere = corriere;
     }
 
-    public int getId_trasporto() {
+    public Integer getId_trasporto() {
         return id_trasporto;
     }
 
-    public void setId_trasporto(int id_trasporto) {
+    public void setId_trasporto(Integer id_trasporto) {
         this.id_trasporto = id_trasporto;
     }
 

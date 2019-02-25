@@ -28,7 +28,7 @@ public class CRUDUtil {
      * @param <T> orm type to find
      * @return
      */
-   public static <T> T getById(int id, Class<T> tClass, boolean withRel){
+   public static <T> T getById(Integer id, Class<T> tClass, boolean withRel){
        EntityManager em = Em.createEntityManager();
        T ormObject = em.find(tClass, id);
        Em.closeEntityManager(em);

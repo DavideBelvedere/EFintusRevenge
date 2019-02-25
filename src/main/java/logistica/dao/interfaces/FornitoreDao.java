@@ -6,7 +6,7 @@ import logistica.entities.Fornitura;
 import java.util.List;
 
 public interface FornitoreDao {
-    Fornitore getById(int id_fornitore);
+    Fornitore getById(Integer id_fornitore);
 
-    List<Fornitura> getSuppliesFromSupplier(int id_fornitore);
+    List<Fornitura> getSuppliesFromSupplier(Integer id_fornitore);
 }

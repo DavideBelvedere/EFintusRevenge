@@ -11,10 +11,10 @@ public class Fornitura {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id_fornitura")
-    private int id;
+    private Integer id;
 
     @Column(name = "quantita")
-    private int quantita;
+    private Integer quantita;
 
     @Column(name = "data")
     @Temporal(TemporalType.DATE)
@@ -30,18 +30,18 @@ public class Fornitura {
 
     public Fornitura(){ }
 
-    public Fornitura( int quantita, Date date) {
+    public Fornitura( Integer quantita, Date date) {
         this.quantita = quantita;
         this.date = date;
     }
 
 
 
-    public int getQuantita() {
+    public Integer getQuantita() {
         return quantita;
     }
 
-    public void setQuantita(int quantita) {
+    public void setQuantita(Integer quantita) {
         this.quantita = quantita;
     }
 

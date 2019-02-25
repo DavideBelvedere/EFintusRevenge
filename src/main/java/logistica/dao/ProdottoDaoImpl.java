@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ProdottoDaoImpl implements ProdottoDao {
     @Override
-    public Prodotto getById(int id) {
+    public Prodotto getById(Integer id) {
         EntityManager em = Em.createEntityManager();
         Prodotto prodotto = em.find(Prodotto.class, id);
         Em.closeEntityManager(em);
@@ -21,7 +21,7 @@ public class ProdottoDaoImpl implements ProdottoDao {
     }
 
     @Override
-    public HashMap<Magazzino, Character> getProductLocation(int id_prodotto) {
+    public HashMap<Magazzino, Character> getProductLocation(Integer id_prodotto) {
         Prodotto prodotto = getById(id_prodotto);
         if (prodotto != null && prodotto.getDisponibilita() != null) {
             HashMap<Magazzino, Character> locations = new HashMap<>();
@@ -36,10 +36,10 @@ public class ProdottoDaoImpl implements ProdottoDao {
     }
 
     @Override
-    public int getProductAvailability(int id_prodotto) {
+    public Integer getProductAvailability(Integer id_prodotto) {
         Prodotto prodotto = getById(id_prodotto);
         if (prodotto != null && prodotto.getDisponibilita() != null) {
-            int quantita = 0;
+            Integer quantita = 0;
             for (Disponibilita disponibilita : prodotto.getDisponibilita()) {
                 quantita += disponibilita.getQuantita();
             }
@@ -49,7 +49,7 @@ public class ProdottoDaoImpl implements ProdottoDao {
     }
 
     @Override
-    public List<Fornitura> getSuppliesOfProduct(int id_prodotto) {
+    public List<Fornitura> getSuppliesOfProduct(Integer id_prodotto) {
         Prodotto prodotto = getById(id_prodotto);
         if (prodotto != null && prodotto.getForniture() != null) {
             return prodotto.getForniture();

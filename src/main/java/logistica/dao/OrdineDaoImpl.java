@@ -22,17 +22,17 @@ public class OrdineDaoImpl implements OrdineDao {
     }
 
     @Override
-    public boolean deleteOrdine(int id_ordine) {
+    public boolean deleteOrdine(Integer id_ordine) {
         return false;
     }
 
     @Override
-    public Ordine getById(int id_ordine) {
+    public Ordine getById(Integer id_ordine) {
         return CRUDUtil.getById(id_ordine, Ordine.class,true);
     }
 
     @Override
-    public Corriere getCourierOfOrder(int id_ordine) {
+    public Corriere getCourierOfOrder(Integer id_ordine) {
         Ordine ordine = getById(id_ordine);
         if (ordine != null) {
             return ordine.getCorriere();

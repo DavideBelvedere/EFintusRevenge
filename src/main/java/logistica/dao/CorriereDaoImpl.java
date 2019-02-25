@@ -19,7 +19,7 @@ public class CorriereDaoImpl implements CorriereDao {
     }
 
     @Override
-    public boolean deleteCorriere(int id_corriere) {
+    public boolean deleteCorriere(Integer id_corriere) {
         EntityManager em = Em.createEntityManager();
         try {
             Corriere corriere = getById(id_corriere, false);
@@ -37,7 +37,7 @@ public class CorriereDaoImpl implements CorriereDao {
     }
 
     @Override
-    public Corriere getById(int id_corriere, boolean withRel) {
+    public Corriere getById(Integer id_corriere, boolean withRel) {
         return CRUDUtil.getById(id_corriere, Corriere.class, withRel);
 
     }

@@ -5,6 +5,6 @@ import logistica.entities.Corriere;
 public interface CorriereDao {
     boolean saveCorriere(Corriere corriere);
     boolean updateCorriere(Corriere corriere);
-    boolean deleteCorriere(int id_corriere);
-    Corriere getById(int id_corriere, boolean withRel);
+    boolean deleteCorriere(Integer id_corriere);
+    Corriere getById(Integer id_corriere, boolean withRel);
 }

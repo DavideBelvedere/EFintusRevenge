@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MagazzinoRequest implements Serializable {
 
-    private int id;
+    private Integer id;
 
     private String via;
 
@@ -22,23 +22,23 @@ public class MagazzinoRequest implements Serializable {
 
     private String cap;
 
-    private double metratura;
+    private Double metratura;
 
-    private double altezza;
+    private Double altezza;
 
-    private double capacita;
+    private Double capacita;
 
     private List<Lavoratore> lavoratori = new ArrayList<>();
 
     private List<Disponibilita> disponibilita = new ArrayList<>();
 
     @JsonGetter
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
     @JsonSetter
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -83,32 +83,32 @@ public class MagazzinoRequest implements Serializable {
     }
 
     @JsonGetter
-    public double getMetratura() {
+    public Double getMetratura() {
         return metratura;
     }
 
     @JsonSetter
-    public void setMetratura(double metratura) {
+    public void setMetratura(Double metratura) {
         this.metratura = metratura;
     }
 
     @JsonGetter
-    public double getAltezza() {
+    public Double getAltezza() {
         return altezza;
     }
 
     @JsonSetter
-    public void setAltezza(double altezza) {
+    public void setAltezza(Double altezza) {
         this.altezza = altezza;
     }
 
     @JsonGetter
-    public double getCapacita() {
+    public Double getCapacita() {
         return capacita;
     }
 
     @JsonSetter
-    public void setCapacita(double capacita) {
+    public void setCapacita(Double capacita) {
         this.capacita = capacita;
     }
 

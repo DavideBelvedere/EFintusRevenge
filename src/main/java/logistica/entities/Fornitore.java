@@ -12,7 +12,7 @@ public class Fornitore implements Orm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_fornitore")
-    private int id;
+    private Integer id;
 
     @Column(name = "name", length = 100)
     private String name;
@@ -38,7 +38,7 @@ public class Fornitore implements Orm {
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

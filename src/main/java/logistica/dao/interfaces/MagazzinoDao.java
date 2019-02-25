@@ -8,9 +8,11 @@ import java.util.List;
 
 public interface MagazzinoDao {
 
-    Magazzino getById(int id);
+    Magazzino getById(Integer id);
 
-    List<Prodotto> getAllProductInWarehouse(int id_magazzino);
+    List<Prodotto> getAllProductInWarehouse(Integer id_magazzino);
 
-    List<Lavoratore> getAllWorkersInWarehouse(int id_magazzino);
+    List<Lavoratore> getAllWorkersInWarehouse(Integer id_magazzino);
+
+    List<Magazzino> getAllWarehouse();
 }

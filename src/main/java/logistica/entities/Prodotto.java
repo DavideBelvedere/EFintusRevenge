@@ -12,7 +12,7 @@ public class Prodotto implements Orm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_prodotto")
-    private int id;
+    private Integer id;
 
     @OneToMany(mappedBy = "prodotto", cascade = CascadeType.ALL)
     private List<Fornitura> forniture = new ArrayList<Fornitura>();
@@ -20,7 +20,7 @@ public class Prodotto implements Orm {
     @OneToMany(mappedBy = "primaryKey.prodotto", cascade = CascadeType.ALL)
     private List<Disponibilita> disponibilita = new ArrayList<Disponibilita>();
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

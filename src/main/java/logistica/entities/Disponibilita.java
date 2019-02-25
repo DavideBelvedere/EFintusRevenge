@@ -16,7 +16,7 @@ public class Disponibilita {
     private ProdottoMagazzinoKey primaryKey = new ProdottoMagazzinoKey();
 
     @Column(name = "quantita")
-    private int quantita;
+    private Integer quantita;
 
     @Column(name="sezione_magazzino", length = 1)
     private char sezione;
@@ -33,7 +33,7 @@ public class Disponibilita {
 
     public Disponibilita(){ }
 
-    public Disponibilita(ProdottoMagazzinoKey primaryKey, int quantita, char sezione) {
+    public Disponibilita(ProdottoMagazzinoKey primaryKey, Integer quantita, char sezione) {
         this.primaryKey = primaryKey;
         this.quantita = quantita;
         this.sezione = sezione;
@@ -48,11 +48,11 @@ public class Disponibilita {
         primaryKey.setMagazzino(magazzino);
     }
 
-    public int getQuantita() {
+    public Integer getQuantita() {
         return quantita;
     }
 
-    public void setQuantita(int quantita) {
+    public void setQuantita(Integer quantita) {
         this.quantita = quantita;
     }
 

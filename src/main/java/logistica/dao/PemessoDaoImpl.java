@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 
 public class PemessoDaoImpl implements PermessoDao {
     @Override
-    public Permesso getById(int id) {
+    public Permesso getById(Integer id) {
         EntityManager em = Em.createEntityManager();
         Permesso permesso = em.find(Permesso.class, id);
         Em.closeEntityManager(em);

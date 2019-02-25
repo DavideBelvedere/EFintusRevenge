@@ -9,16 +9,16 @@ import java.util.List;
 
 public interface ProdottoDao {
 
-    Prodotto getById(int id);
+    Prodotto getById(Integer id);
 
     /***
      *
      * @param id_prodotto the product id that needs to be find
      * @return a list that contains hashMap key: Warehouse value:section of warehouse
      */
-    HashMap<Magazzino, Character> getProductLocation(int id_prodotto);
+    HashMap<Magazzino, Character> getProductLocation(Integer id_prodotto);
 
-    int getProductAvailability(int id_prodotto);
+    Integer getProductAvailability(Integer id_prodotto);
 
-    List<Fornitura> getSuppliesOfProduct(int id_prodotto);
+    List<Fornitura> getSuppliesOfProduct(Integer id_prodotto);
 }

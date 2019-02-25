@@ -12,7 +12,7 @@ import java.util.List;
 public class FornituraDaoImpl implements FornituraDao {
 
     @Override
-    public Fornitura getById(int id) {
+    public Fornitura getById(Integer id) {
         EntityManager em = Em.createEntityManager();
         Fornitura fornitura = em.find(Fornitura.class, id);
         Em.closeEntityManager(em);

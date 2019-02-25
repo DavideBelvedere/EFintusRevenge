@@ -12,7 +12,7 @@ public class Permesso implements Orm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_permesso")
-    private int id;
+    private Integer id;
 
     @Column(name = "tipo", length = 20)
     private String tipo;
@@ -34,7 +34,7 @@ public class Permesso implements Orm {
         this.tipo = tipo;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

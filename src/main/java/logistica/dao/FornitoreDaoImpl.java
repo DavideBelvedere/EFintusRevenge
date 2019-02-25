@@ -10,7 +10,7 @@ import java.util.List;
 
 public class FornitoreDaoImpl implements FornitoreDao {
     @Override
-    public Fornitore getById(int id_fornitore) {
+    public Fornitore getById(Integer id_fornitore) {
         EntityManager em = Em.createEntityManager();
         Fornitore magazzino = em.find(Fornitore.class, id_fornitore);
         Em.closeEntityManager(em);
@@ -18,7 +18,7 @@ public class FornitoreDaoImpl implements FornitoreDao {
     }
 
     @Override
-    public List<Fornitura> getSuppliesFromSupplier(int id_fornitore) {
+    public List<Fornitura> getSuppliesFromSupplier(Integer id_fornitore) {
         Fornitore fornitore = getById(id_fornitore);
         if (fornitore != null && fornitore.getForniture() != null) {
             return  fornitore.getForniture();

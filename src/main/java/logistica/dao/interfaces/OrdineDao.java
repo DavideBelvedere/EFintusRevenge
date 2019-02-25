@@ -15,9 +15,9 @@ public interface OrdineDao {
 
     boolean updateOrdine(Ordine ordine);
 
-    boolean deleteOrdine(int id_ordine);
+    boolean deleteOrdine(Integer id_ordine);
 
-    Ordine getById(int id_ordine);
+    Ordine getById(Integer id_ordine);
 
-    Corriere getCourierOfOrder(int id_ordine);
+    Corriere getCourierOfOrder(Integer id_ordine);
 }

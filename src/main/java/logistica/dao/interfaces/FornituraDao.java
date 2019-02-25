@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface FornituraDao {
-    Fornitura getById(int id);
+    Fornitura getById(Integer id);
 
     List<Fornitura> getSuppliesByDate(Date date);
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CorriereRequest implements Serializable {
-    private int id;
+    private Integer id;
 
     private String nome;
 
@@ -27,7 +27,7 @@ public class CorriereRequest implements Serializable {
     private List<Ordine> ordini = new ArrayList<>();
 
     @JsonGetter
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -62,7 +62,7 @@ public class CorriereRequest implements Serializable {
     }
 
     @JsonSetter
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

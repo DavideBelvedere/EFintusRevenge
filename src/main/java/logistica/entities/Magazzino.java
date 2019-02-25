@@ -12,7 +12,7 @@ public class Magazzino implements Orm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_magazzino")
-    private int id;
+    private Integer id;
 
     @Column(name = "via", length = 100)
     private String via;
@@ -27,13 +27,13 @@ public class Magazzino implements Orm {
     private String cap;
 
     @Column(name = "metratura")
-    private double metratura;
+    private Double metratura;
 
     @Column(name = "altezza")
-    private double altezza;
+    private Double altezza;
 
     @Column(name = "capacita")
-    private double capacita;
+    private Double capacita;
 
     @OneToMany(mappedBy = "magazzino", fetch = FetchType.LAZY)
     private List<Lavoratore> lavoratori= new ArrayList<Lavoratore>();
@@ -44,7 +44,7 @@ public class Magazzino implements Orm {
     public Magazzino() {
     }
 
-    public Magazzino(String via, String citta, String n_civico, String cap, double metratura, double altezza, double capacita) {
+    public Magazzino(String via, String citta, String n_civico, String cap, Double metratura, Double altezza, Double capacita) {
         this.via = via;
         this.citta = citta;
         this.n_civico = n_civico;
@@ -54,7 +54,7 @@ public class Magazzino implements Orm {
         this.capacita = capacita;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -91,27 +91,27 @@ public class Magazzino implements Orm {
         this.cap = cap;
     }
 
-    public double getMetratura() {
+    public Double getMetratura() {
         return metratura;
     }
 
-    public void setMetratura(double metratura) {
+    public void setMetratura(Double metratura) {
         this.metratura = metratura;
     }
 
-    public double getAltezza() {
+    public Double getAltezza() {
         return altezza;
     }
 
-    public void setAltezza(double altezza) {
+    public void setAltezza(Double altezza) {
         this.altezza = altezza;
     }
 
-    public double getCapacita() {
+    public Double getCapacita() {
         return capacita;
     }
 
-    public void setCapacita(double capacita) {
+    public void setCapacita(Double capacita) {
         this.capacita = capacita;
     }
 

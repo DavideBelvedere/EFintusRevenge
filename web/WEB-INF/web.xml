@@ -31,6 +31,10 @@
         <servlet-name>resteasy-servlet</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
+    <resource-env-ref>
+        <resource-env-ref-name>jdbc</resource-env-ref-name>
+        <resource-env-ref-type>javax.sql.DataSource</resource-env-ref-type>
+    </resource-env-ref>
 
 
 </web-app>

@@ -8,8 +8,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fornitore implements Serializable {
-    private int id;
+public class FornitoreRequest implements Serializable {
+    private Integer id;
 
     private String name;
 
@@ -24,7 +24,7 @@ public class Fornitore implements Serializable {
     private List<Fornitura> forniture = new ArrayList<Fornitura>();
 
     @JsonGetter
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -59,7 +59,7 @@ public class Fornitore implements Serializable {
     }
 
     @JsonSetter
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

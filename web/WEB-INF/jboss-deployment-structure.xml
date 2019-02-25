@@ -9,6 +9,9 @@
             <module name="javax.ws.rs.api"/>
             <module name="org.jboss.resteasy.resteasy-jaxrs"/>
         </exclusions>
+        <dependencies>
+            <module name="org.dom4j"/>
+        </dependencies>
         <local-last value="true"/>
     </deployment>
 </jboss-deployment-structure>
