@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jboss-deployment-structure>
-    <deployment>
-        <exclude-subsystems>
-            <subsystem name="resteasy"/>
-        </exclude-subsystems>
-        <exclusions>
-            <module name="javaee.api"/>
-            <module name="javax.ws.rs.api"/>
-            <module name="org.jboss.resteasy.resteasy-jaxrs"/>
-        </exclusions>
-        <dependencies>
-            <module name="org.dom4j"/>
-        </dependencies>
-        <local-last value="true"/>
-    </deployment>
+	<deployment>
+		<exclude-subsystems>
+			<subsystem name="resteasy" />
+		</exclude-subsystems>
+		<exclusions>
+			<module name="javaee.api" />
+			<module name="javax.ws.rs.api" />
+			<module name="org.jboss.resteasy.resteasy-jaxrs" />
+			<module name="org.dom4j" />
+		</exclusions>
+		<local-last value="true" />
+	</deployment>
 </jboss-deployment-structure>
