@@ -24,7 +24,7 @@ public class Ordine {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Id")
-    private int id;
+    private Integer id;
 
     @Column(name = "Data_ordine")
     private Date dataOrdine;
@@ -41,19 +41,22 @@ public class Ordine {
     private Corriere corriere;
 
     @Column(name = "Id_Trasporto")
-    private int idTrasporto;
+    private Integer idTrasporto;
 
     @OneToMany(mappedBy = "recensione")
     private List<Recensione> recensioni;
 
+    @OneToMany(mappedBy = "fattura")
+    private List<Fattura> fatture;
+
     public Ordine() {
     }
 
-    public int getId() {
+    public Integer getId() {
 	return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
 	this.id = id;
     }
 
@@ -89,12 +92,28 @@ public class Ordine {
 	this.corriere = corriere;
     }
 
-    public int getIdTrasporto() {
+    public Integer getIdTrasporto() {
 	return idTrasporto;
     }
 
-    public void setIdTrasporto(int idTrasporto) {
+    public void setIdTrasporto(Integer idTrasporto) {
 	this.idTrasporto = idTrasporto;
+    }
+
+    public List<Recensione> getRecensioni() {
+	return recensioni;
+    }
+
+    public void setRecensioni(List<Recensione> recensioni) {
+	this.recensioni = recensioni;
+    }
+
+    public List<Fattura> getFatture() {
+	return fatture;
+    }
+
+    public void setFatture(List<Fattura> fatture) {
+	this.fatture = fatture;
     }
 
 }

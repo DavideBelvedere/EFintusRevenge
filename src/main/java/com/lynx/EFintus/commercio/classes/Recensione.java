@@ -37,7 +37,7 @@ public class Recensione {
     private String descrizione;
 
     @Column(name = "voto")
-    private int voto;
+    private Integer voto;
 
     @Column(name = "data")
     private Date data;
@@ -77,11 +77,11 @@ public class Recensione {
 	this.descrizione = descrizione;
     }
 
-    public int getVoto() {
+    public Integer getVoto() {
 	return voto;
     }
 
-    public void setVoto(int voto) {
+    public void setVoto(Integer voto) {
 	this.voto = voto;
     }
 

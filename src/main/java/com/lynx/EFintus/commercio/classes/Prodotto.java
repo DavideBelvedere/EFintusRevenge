@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -59,9 +60,16 @@ public class Prodotto {
     @Column(name = "DataFineValidita")
     private Date dataFineValidita;
 
+    @OneToMany(mappedBy = "wishlist_prodotto")
     private List<WishlistProdotto> wishlistProdottos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "ordine_prodotto")
     private List<OrdineProdotto> ordineProdottos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "tags_prodotto")
     private List<TagsProdotto> tagsProdottos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "recensione")
     private List<Recensione> recensioni = new ArrayList<>();
 
     public Prodotto() {
