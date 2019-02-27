@@ -1,12 +1,13 @@
 package logistica.dao.interfaces;
 
+import logistica.dao.Utility.JpaDao;
 import logistica.entities.Lavoratore;
 import logistica.entities.Magazzino;
 import logistica.entities.Prodotto;
 
 import java.util.List;
 
-public interface MagazzinoDao {
+public interface MagazzinoDao{
 
     Magazzino getById(Integer id);
 

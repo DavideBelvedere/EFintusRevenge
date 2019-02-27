@@ -1,18 +1,19 @@
 package logistica.dao;
 
 import logistica.Utility.Em;
+import logistica.dao.Utility.JpaDao;
 import logistica.dao.interfaces.MagazzinoDao;
 import logistica.entities.Disponibilita;
 import logistica.entities.Lavoratore;
 import logistica.entities.Magazzino;
 import logistica.entities.Prodotto;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MagazzinoDaoImpl implements MagazzinoDao {
+public class MagazzinoDaoImpl extends JpaDao<Magazzino> implements MagazzinoDao {
+
     @Override
     public Magazzino getById(Integer id) {
         EntityManager em = Em.createEntityManager();
@@ -51,13 +52,30 @@ public class MagazzinoDaoImpl implements MagazzinoDao {
 
     @Override
     public List<Magazzino> getAllWarehouse() {
-        EntityManager em = Em.createEntityManager();
-        Query query = em.createQuery("SELECT m FROM Magazzino m");
-        List results = query.getResultList();
-        if (results.isEmpty()) {
-            results = null;
+        //EntityManager em = Em.createEntityManager();
+        EntityManager em = entityManagerFactory.createEntityManager();
+        List<Magazzino> results;
+        try {
+            Query query = em.createQuery("SELECT m FROM Magazzino m");
+            results = query.getResultList();
+            if (results.isEmpty()) {
+                results = null;
+            }
+            for (Magazzino m:
+                 results) {
+                m.setLavoratori(null);
+                m.setDisponibilita(null);
+
+            }
+            em.close();
+            // Em.closeEntityManager(em);
+        } catch (Exception e){
+            results = new ArrayList<Magazzino>();
+            Magazzino m = new Magazzino();
+            m.setCap("20861");
+            m.setCitta("roma");
+            results.add(m);
         }
-        Em.closeEntityManager(em);
         return results;
     }
 

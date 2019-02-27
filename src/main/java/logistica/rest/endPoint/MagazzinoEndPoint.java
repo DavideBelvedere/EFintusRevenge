@@ -4,14 +4,13 @@ import logistica.dao.MagazzinoDaoImpl;
 import logistica.rest.request.MagazzinoRequest;
 import logistica.rest.response.MagazzinoResponse;
 
-import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 @Path("/magazzino")
 public class MagazzinoEndPoint {
 
-	MagazzinoDaoImpl magazzinoDao = new MagazzinoDaoImpl();
+	private MagazzinoDaoImpl magazzinoDao = new MagazzinoDaoImpl();
 
     @GET
     @Path("/getAll")

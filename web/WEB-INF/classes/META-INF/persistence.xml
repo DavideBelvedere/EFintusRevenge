@@ -3,14 +3,37 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-    <persistence-unit name="logistica">
+    <persistence-unit name="logistica" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+       <!-- wildfly-->
+       <jta-data-source>java:jboss/datasource/MySqlDS</jta-data-source>
+        <!--tomcat
+        <jta-data-source>java:/comp/env/jdbc/MyLocalDB</jta-data-source>-->
+        <class>logistica.entities.Magazzino</class>
+        <class>logistica.entities.Fornitura</class>
+        <class>logistica.entities.Ordine</class>
+        <class>logistica.entities.Corriere</class>
+        <class>logistica.entities.Disponibilita</class>
+        <class>logistica.entities.Lavoratore</class>
+        <class>logistica.entities.Fornitore</class>
+        <class>logistica.entities.Permesso</class>
+        <class>logistica.entities.Prodotto</class>
 
         <properties>
-            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-            <property name="hibernate.connection.url" value="jdbc:mysql://10.9.129.35/logistica"/>
+            <!--Real Implementation
+          <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+
+          <property name="hibernate.connection.url" value="jdbc:mysql://10.9.129.35/logistica"/>
+          <property name="hibernate.connection.username" value="fintus"/>
+          <property name="hibernate.connection.password" value="P@ssword2018$"/>-->
+
+            <!--Test Implementation
+            <property name="hibernate.connection.url" value="jdbc:mysql://127.0.0.1:3306/logistica"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="rootroot"/>-->
+
+
             <property name="hibernate.connection.autocommit" value="false"/>
-            <property name="hibernate.connection.username" value="fintus"/>
-            <property name="hibernate.connection.password" value="P@ssword2018$"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
             <property name="hibernate.connection.CharSet" value="utf8"/>
             <property name="hibernate.connection.characterEncoding" value="utf8"/>
