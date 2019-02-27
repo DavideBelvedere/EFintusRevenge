@@ -9,9 +9,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.lynx.EFintus.commercio.classes.persistable.Persistable;
+
 @Entity
 @Table(name = "metodo_pagamento")
-public class MetodoPagamento {
+public class MetodoPagamento implements Persistable {
 
     @Id
     @Column(name = "metodo_pagamento")

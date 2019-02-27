@@ -1,95 +1,61 @@
 package com.lynx.EFintus.commercio.dao;
 
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import com.lynx.EFintus.commercio.classes.WishList;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import logistica.Utility.Em;
 
 public class WishListDao extends GenericDao<WishList> {
 
-    private String TABLE_NAME = "wishlist";
-
-    public WishList getById(int id) throws SQLException {
-        Connection con = getConnection();
-        PreparedStatement ps = con.prepareStatement("select * from " + getTableName() + " where id = ?");
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
-        con.close();
-        return fromResultSetToBean(rs);
+    public WishList getById(Integer id) throws SQLException {
+	return getById(id, WishList.class, true);
 
     }
 
     @Override
     public List<WishList> getAll() throws SQLException {
-        List<WishList> wishLists = new ArrayList<WishList>();
-
-        Connection con = getConnection();
-        PreparedStatement ps = con.prepareStatement("select * from " + getTableName());
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            wishLists.add(this.fromResultSetToBean(rs));
-        }
-
-        con.close();
-
-        return wishLists;
+	EntityManager em = Em.createEntityManager();
+	Query query = em.createQuery("select w From wishlist w");
+	List results = query.getResultList();
+	Em.closeEntityManager(em);
+	if (!results.isEmpty()) {
+	    return results;
+	}
+	return null;
 
     }
 
     @Override
-    public void save(WishList wishLists) throws SQLException {
-        Connection con = getConnection();
-        PreparedStatement ps = con
-                .prepareStatement("insert into " + getTableAndColumns() + " values (?, ?)");
-
-        ps.setInt(1, wishLists.getUtente());
-        ps.setString(2, wishLists.getNome());
-
-        int status = ps.executeUpdate();
-
-        con.close();
+    public boolean save(WishList wishLists) throws SQLException {
+	return persistableSave(wishLists);
     }
 
     @Override
-    public void update(WishList wishLists) throws SQLException {
+    public boolean update(WishList wishLists) throws SQLException {
 
-        Connection con = getConnection();
-        PreparedStatement ps = con.prepareStatement("update " + getTableName() + " set Utente=?, Nome=? WHERE id=?");
-        ps.setInt(1, wishLists.getUtente());
-        ps.setString(2, wishLists.getNome());
-        ps.setInt(3, wishLists.getId());
-
-        ps.executeUpdate();
-
-        con.close();
+	return save(wishLists);
     }
 
     @Override
-    public void delete(WishList wishLists) throws SQLException {
-        Connection con = getConnection();
-        PreparedStatement ps = con.prepareStatement("delete from " + getTableName() + " where id = ?");
-        ps.setInt(1, wishLists.getId());
-        ps.executeUpdate();
-        con.close();
+    public boolean delete(WishList wishLists) throws SQLException {
+	EntityManager em = Em.createEntityManager();
+	try {
+
+	    em.getTransaction().begin();
+	    em.remove(wishLists);
+	    Em.closeEntityManager(em);
+
+	} catch (Exception e) {
+	    em.getTransaction().rollback();
+	    System.out.println("Errore: " + e.getMessage());
+	    return false;
+	}
+	return true;
     }
 
-    @Override
-    public String getTableName() {
-        return TABLE_NAME;
-    }
-
-    @Override
-    public String getColumns() {
-        return "(Utente, Nome)";
-    }
-
-    @Override
-    public WishList fromResultSetToBean(ResultSet rs) throws SQLException {
-        WishList wishLists = new WishList(rs.getInt(1), rs.getInt(2), rs.getString(3));
-        return wishLists;
-    }
 }

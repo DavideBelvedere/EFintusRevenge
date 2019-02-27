@@ -1,79 +1,58 @@
 package com.lynx.EFintus.commercio.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.lynx.EFintus.commercio.classes.TagsProdotto;
 
+import logistica.Utility.Em;
+
 public class TagsProdottoDao extends GenericDao<TagsProdotto> {
 
-    private static String TABLE_NAME = "tags_prodotto";
-
-    public List<TagsProdotto> getByIdTags(int idTags) throws SQLException {
-	List<TagsProdotto> tagsProdotti = new ArrayList<TagsProdotto>();
-
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("select * from " + getTableName() + " where ID_Tags = ?");
-	ps.setInt(1, idTags);
-	ResultSet rs = ps.executeQuery();
-	while (rs.next()) {
-	    tagsProdotti.add(this.fromResultSetToBean(rs));
+    public List<TagsProdotto> getByIdTags(Integer idTags) throws SQLException {
+	EntityManager em = Em.createEntityManager();
+	Query query = em.createQuery("select tp From tags_prodotto tp WHERE tp.Id_Tags=:Id_Tags");
+	query.setParameter("Id_Tags", idTags);
+	List results = query.getResultList();
+	Em.closeEntityManager(em);
+	if (!results.isEmpty()) {
+	    return results;
 	}
-
-	con.close();
-
-	return tagsProdotti;
+	return null;
     }
 
-    public List<TagsProdotto> getByIdProdotto(int idProdotto) throws SQLException {
+    public List<TagsProdotto> getByIdProdotto(Integer idProdotto) throws SQLException {
 
-	List<TagsProdotto> tagsProdotti = new ArrayList<TagsProdotto>();
-
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("select * from " + getTableName() + " where ID_Prodotto = ?");
-	ps.setInt(1, idProdotto);
-	ResultSet rs = ps.executeQuery();
-	while (rs.next()) {
-	    tagsProdotti.add(this.fromResultSetToBean(rs));
+	EntityManager em = Em.createEntityManager();
+	Query query = em.createQuery("select tp From tags_prodotto tp WHERE tp.Id_Prodotto=:Id_Prodotto");
+	query.setParameter("Id_Prodotto", idProdotto);
+	List results = query.getResultList();
+	Em.closeEntityManager(em);
+	if (!results.isEmpty()) {
+	    return results;
 	}
-
-	con.close();
-
-	return tagsProdotti;
+	return null;
     }
 
     @Override
     public List<TagsProdotto> getAll() throws SQLException {
 
-	List<TagsProdotto> tagsProdotti = new ArrayList<TagsProdotto>();
-
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("select * from " + getTableName());
-	ResultSet rs = ps.executeQuery();
-	while (rs.next()) {
-	    tagsProdotti.add(this.fromResultSetToBean(rs));
+	EntityManager em = Em.createEntityManager();
+	Query query = em.createQuery("select tp From tags_prodotto tp");
+	List results = query.getResultList();
+	Em.closeEntityManager(em);
+	if (!results.isEmpty()) {
+	    return results;
 	}
-
-	con.close();
-
-	return tagsProdotti;
+	return null;
     }
 
     @Override
-    public void save(TagsProdotto tagsProdotto) throws SQLException {
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("insert into " + getTableAndColumns() + " values (?,?)");
-
-	ps.setInt(1, tagsProdotto.getIdTags());
-	ps.setInt(2, tagsProdotto.getIdProdotto());
-
-	ps.executeUpdate();
-
-	con.close();
+    public boolean save(TagsProdotto tagsProdotto) throws SQLException {
+	return persistableSave(tagsProdotto);
 
     }
 
@@ -81,36 +60,27 @@ public class TagsProdottoDao extends GenericDao<TagsProdotto> {
      * Not implemented method, use delete and save
      */
     @Override
-    public void update(TagsProdotto tagsProdotto) throws SQLException {
-	// TODO Auto-generated method stub
+    public boolean update(TagsProdotto tagsProdotto) throws SQLException {
+	return save(tagsProdotto);
 
     }
 
     @Override
-    public void delete(TagsProdotto tagsProdotto) throws SQLException {
-	Connection con = getConnection();
-	PreparedStatement ps = con
-		.prepareStatement("delete from " + getTableName() + " where (ID_Tags = ? AND ID_Prodotto = ?)");
-	ps.setInt(1, tagsProdotto.getIdTags());
-	ps.setInt(2, tagsProdotto.getIdProdotto());
-	ps.executeUpdate();
-	con.close();
+    public boolean delete(TagsProdotto tagsProdotto) throws SQLException {
+	EntityManager em = Em.createEntityManager();
+	try {
 
-    }
+	    em.getTransaction().begin();
+	    em.remove(tagsProdotto);
+	    Em.closeEntityManager(em);
 
-    @Override
-    public TagsProdotto fromResultSetToBean(ResultSet rs) throws SQLException {
-	return new TagsProdotto(rs.getInt(1), rs.getInt(2));
-    }
+	} catch (Exception e) {
+	    em.getTransaction().rollback();
+	    System.out.println("Errore: " + e.getMessage());
+	    return false;
+	}
+	return true;
 
-    @Override
-    public String getTableName() {
-	return TABLE_NAME;
-    }
-
-    @Override
-    public String getColumns() {
-	return "(ID_Tags, ID_Prodotto)";
     }
 
 }

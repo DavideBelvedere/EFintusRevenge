@@ -10,12 +10,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.lynx.EFintus.commercio.classes.persistable.Persistable;
 import com.lynx.EFintus.commercio.classes.primarykeys.OrdineProdottoPK;
 
 @Entity
 @Table(name = "ordine_prodotto")
 @IdClass(OrdineProdottoPK.class)
-public class OrdineProdotto {
+public class OrdineProdotto implements Persistable {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -7,13 +7,13 @@ import javax.persistence.Persistence;
 public class Em {
 
     private final static EntityManagerFactory entityManagerFactory = Persistence
-	    .createEntityManagerFactory("logistica");
+	    .createEntityManagerFactory("efintus_commerciale");
 
     public static EntityManager createEntityManager() {
 	return entityManagerFactory.createEntityManager();
     }
 
-    public static void closeEntityManager() {
+    public static void closeEntityManager(EntityManager em) {
 	entityManagerFactory.close();
     }
 

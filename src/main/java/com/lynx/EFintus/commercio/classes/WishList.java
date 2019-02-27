@@ -14,9 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.lynx.EFintus.commercio.classes.persistable.Persistable;
+
 @Entity
 @Table(name = "wishlist")
-public class WishList {
+public class WishList implements Persistable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

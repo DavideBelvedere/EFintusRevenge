@@ -1,98 +1,70 @@
 package com.lynx.EFintus.commercio.dao;
 
+import java.sql.SQLException;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.lynx.EFintus.commercio.classes.OrdineProdotto;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import logistica.Utility.Em;
 
 public class OrdineProdottoDao extends GenericDao<OrdineProdotto> {
 
-    private String TABLE_NAME = "ordine_prodotto";
-
-    public OrdineProdotto getById(int idProdotto, int idOrdine) throws SQLException {
-        Connection con = getConnection();
-        PreparedStatement ps = con.prepareStatement("select * from " + getTableName() + " where id_prodotto = ? and id_ordine = ?");
-        ps.setInt(1, idProdotto);
-        ps.setInt(2, idOrdine);
-        ResultSet rs = ps.executeQuery();
-        con.close();
-        return fromResultSetToBean(rs);
-
+    public OrdineProdotto getById(Integer idProdotto, Integer idOrdine) throws SQLException {
+	EntityManager em = Em.createEntityManager();
+	Query query = em.createQuery(
+		"select op From ordine_prodotto op WHERE op.Id_prodotto=:Id_prodotto & op.Id_ordine=:Id_ordine");
+	query.setParameter("Id_prodotto", idProdotto);
+	query.setParameter("Id_ordine", idOrdine);
+	OrdineProdotto results = (OrdineProdotto) query.getSingleResult();
+	Em.closeEntityManager(em);
+	if (results == null) {
+	    return results;
+	}
+	return null;
     }
 
     @Override
     public List<OrdineProdotto> getAll() throws SQLException {
-        List<OrdineProdotto> ordersProducts = new ArrayList<OrdineProdotto>();
-
-        Connection con = getConnection();
-        PreparedStatement ps = con.prepareStatement("select * from " + getTableName());
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            ordersProducts.add(this.fromResultSetToBean(rs));
-        }
-
-        con.close();
-
-        return ordersProducts;
+	EntityManager em = Em.createEntityManager();
+	Query query = em.createQuery("select op From ordine_prodotto op");
+	List results = query.getResultList();
+	Em.closeEntityManager(em);
+	if (!results.isEmpty()) {
+	    return results;
+	}
+	return null;
 
     }
 
     @Override
-    public void save(OrdineProdotto ordersProducts) throws SQLException {
-        Connection con = getConnection();
-        PreparedStatement ps = con
-                .prepareStatement("insert into " + getTableAndColumns() + " values (?)");
-
-        ps.setInt(1, ordersProducts.getQuantita());
-
-        int status = ps.executeUpdate();
-
-        con.close();
+    public boolean save(OrdineProdotto ordersProducts) throws SQLException {
+	return persistableSave(ordersProducts);
     }
 
     @Override
-    public void update(OrdineProdotto ordersProducts) throws SQLException {
+    public boolean update(OrdineProdotto ordersProducts) throws SQLException {
 
-        Connection con = getConnection();
-        PreparedStatement ps = con.prepareStatement("update " + getTableName() + " set quantita=? WHERE id_prodotto = ? and id_ordine = ?");
-        ps.setInt(1, ordersProducts.getQuantita());
-        ps.setInt(2, ordersProducts.getIdProdotto());
-        ps.setInt(3, ordersProducts.getIdOrdine());
-
-
-        ps.executeUpdate();
-
-        con.close();
+	return this.save(ordersProducts);
     }
 
     @Override
-    public void delete(OrdineProdotto ordersProducts) throws SQLException {
-        Connection con = getConnection();
-        PreparedStatement ps = con.prepareStatement("delete from " + getTableName() + " where id_prodotto = ? and id_ordine = ?");
-        ps.setInt(1, ordersProducts.getIdProdotto());
-        ps.setInt(2, ordersProducts.getIdOrdine());
-        ps.executeUpdate();
-        con.close();
+    public boolean delete(OrdineProdotto ordersProducts) throws SQLException {
+	EntityManager em = Em.createEntityManager();
+	try {
+
+	    em.getTransaction().begin();
+	    em.remove(ordersProducts);
+	    Em.closeEntityManager(em);
+
+	} catch (Exception e) {
+	    em.getTransaction().rollback();
+	    System.out.println("Errore: " + e.getMessage());
+	    return false;
+	}
+	return true;
     }
 
-    @Override
-    public String getTableName() {
-        return TABLE_NAME;
-    }
-
-    @Override
-    public String getColumns() {
-        return "(quantita)";
-    }
-
-    @Override
-    public OrdineProdotto fromResultSetToBean(ResultSet rs) throws SQLException {
-        OrdineProdotto ordersProducts = new OrdineProdotto(rs.getInt(1), rs.getInt(2), rs.getInt(3));
-        return ordersProducts;
-    }
 }

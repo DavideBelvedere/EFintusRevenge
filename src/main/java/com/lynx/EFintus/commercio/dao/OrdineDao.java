@@ -1,54 +1,62 @@
 package com.lynx.EFintus.commercio.dao;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+
 import com.lynx.EFintus.commercio.classes.Ordine;
+
+import logistica.Utility.Em;
 
 public class OrdineDao extends GenericDao<Ordine> {
 
-    private static String TABLE_NAME = "ordine";
+    public Ordine getById(Integer id) throws SQLException {
+	return getById(id, Ordine.class, true);
+    }
 
     @Override
     public List<Ordine> getAll() throws SQLException {
-	// TODO Auto-generated method stub
+	EntityManager em = Em.createEntityManager();
+	Query query = em.createQuery("select o From ordine o");
+	List results = query.getResultList();
+	Em.closeEntityManager(em);
+	if (!results.isEmpty()) {
+	    return results;
+	}
 	return null;
     }
 
     @Override
-    public void save(Ordine t) throws SQLException {
-	// TODO Auto-generated method stub
+    public boolean save(Ordine ordine) throws SQLException {
+
+	return persistableSave(ordine);
 
     }
 
     @Override
-    public void update(Ordine t) throws SQLException {
-	// TODO Auto-generated method stub
+    public boolean update(Ordine ordine) throws SQLException {
+	return this.save(ordine);
 
     }
 
     @Override
-    public void delete(Ordine t) throws SQLException {
-	// TODO Auto-generated method stub
+    public boolean delete(Ordine ordine) throws SQLException {
+	EntityManager em = Em.createEntityManager();
+	try {
 
-    }
+	    em.getTransaction().begin();
+	    em.remove(ordine);
+	    Em.closeEntityManager(em);
 
-    @Override
-    public Ordine fromResultSetToBean(ResultSet t) throws SQLException {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	} catch (Exception e) {
+	    em.getTransaction().rollback();
+	    System.out.println("Errore: " + e.getMessage());
+	    return false;
+	}
+	return true;
 
-    @Override
-    public String getTableName() {
-	// TODO Auto-generated method stub
-	return null;
-    }
-
-    @Override
-    public String getColumns() {
-	return "(Id, Data_ordine, Id_utente, Stato, Id_Corriere, Id_Trasporto)";
     }
 
 }

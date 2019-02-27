@@ -11,9 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.lynx.EFintus.commercio.classes.persistable.Persistable;
+
 @Entity
 @Table(name = "fattura")
-public class Fattura {
+public class Fattura implements Persistable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

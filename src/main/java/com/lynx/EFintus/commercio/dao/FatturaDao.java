@@ -1,94 +1,61 @@
 package com.lynx.EFintus.commercio.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.lynx.EFintus.commercio.classes.Fattura;
 
+import logistica.Utility.Em;
+
 public class FatturaDao extends GenericDao<Fattura> {
 
-    private String TABLE_NAME = "fattura";
-
-    public Fattura getById(int id) throws SQLException {
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("select * from " + getTableName() + " where id = ?");
-	ps.setInt(1, id);
-	ResultSet rs = ps.executeQuery();
-	con.close();
-	return fromResultSetToBean(rs);
+    public Fattura getById(Integer id) throws SQLException {
+	return getById(id, Fattura.class, true);
     }
 
     @Override
     public List<Fattura> getAll() throws SQLException {
-	List<Fattura> fatture = new ArrayList<Fattura>();
-
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("select * from " + getTableName());
-	ResultSet rs = ps.executeQuery();
-	while (rs.next()) {
-	    fatture.add(this.fromResultSetToBean(rs));
+	EntityManager em = Em.createEntityManager();
+	Query query = em.createQuery("select f From fattura f");
+	List results = query.getResultList();
+	Em.closeEntityManager(em);
+	if (!results.isEmpty()) {
+	    return results;
 	}
-	con.close();
-
-	return fatture;
+	return null;
     }
 
     @Override
-    public void save(Fattura fattura) throws SQLException {
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("insert into " + getTableAndColumns() + " values (?,?)");
-
-	ps.setInt(1, fattura.getIdOrdine());
-	ps.setString(2, fattura.getMetodoPagamento());
-
-	ps.executeUpdate();
-
-	con.close();
+    public boolean save(Fattura fattura) throws SQLException {
+	return persistableSave(fattura);
 
     }
 
     @Override
-    public void update(Fattura fattura) throws SQLException {
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("update " + getTableName() + " set nome=?, ParentID=? WHERE id=?");
-	ps.setInt(1, fattura.getIdOrdine());
-	ps.setString(2, fattura.getMetodoPagamento());
-	ps.setInt(3, fattura.getId());
-
-	ps.executeUpdate();
-
-	con.close();
+    public boolean update(Fattura fattura) throws SQLException {
+	return this.save(fattura);
 
     }
 
     @Override
-    public void delete(Fattura fattura) throws SQLException {
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("delete from " + getTableName() + " where id = ?");
-	ps.setInt(1, fattura.getId());
-	ps.executeUpdate();
-	con.close();
+    public boolean delete(Fattura fattura) throws SQLException {
+	EntityManager em = Em.createEntityManager();
+	try {
 
-    }
+	    em.getTransaction().begin();
+	    em.remove(fattura);
+	    Em.closeEntityManager(em);
 
-    @Override
-    public Fattura fromResultSetToBean(ResultSet rs) throws SQLException {
-	Fattura fattura = new Fattura(rs.getInt(1), rs.getInt(2), rs.getString(3));
-	return fattura;
-    }
+	} catch (Exception e) {
+	    em.getTransaction().rollback();
+	    System.out.println("Errore: " + e.getMessage());
+	    return false;
+	}
+	return true;
 
-    @Override
-    public String getTableName() {
-	return TABLE_NAME;
-    }
-
-    @Override
-    public String getColumns() {
-	return "(Id_ordine, Metodo_pagamento)";
     }
 
 }

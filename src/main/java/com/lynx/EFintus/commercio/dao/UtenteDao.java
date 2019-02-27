@@ -1,112 +1,61 @@
 package com.lynx.EFintus.commercio.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.lynx.EFintus.commercio.classes.Utente;
 
+import logistica.Utility.Em;
+
 public class UtenteDao extends GenericDao<Utente> {
 
-    private String TABLE_NAME = "utente";
-
-    public Utente getByID(int id) throws SQLException {
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("select * from " + getTableName() + " where id = ?");
-	ps.setInt(1, id);
-	ResultSet rs = ps.executeQuery();
-	con.close();
-	return fromResultSetToBean(rs);
+    public Utente getByID(Integer id) throws SQLException {
+	return getById(id, Utente.class, true);
 
     }
 
     @Override
     public List<Utente> getAll() throws SQLException {
-	List<Utente> utenti = new ArrayList<Utente>();
-
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("select * from " + getTableName());
-	ResultSet rs = ps.executeQuery();
-	while (rs.next()) {
-	    utenti.add(this.fromResultSetToBean(rs));
+	EntityManager em = Em.createEntityManager();
+	Query query = em.createQuery("select u From utente u");
+	List results = query.getResultList();
+	Em.closeEntityManager(em);
+	if (!results.isEmpty()) {
+	    return results;
 	}
-	con.close();
-
-	return utenti;
+	return null;
 
     }
 
     @Override
-    public void save(Utente utente) throws SQLException {
-	Connection con = getConnection();
-	PreparedStatement ps = con
-		.prepareStatement("insert into " + getTableAndColumns() + " values (?,?,?,?,?,?,?,?,?,?)");
-
-	ps.setString(1, utente.getNome());
-	ps.setString(2, utente.getCognome());
-	ps.setString(3, utente.getEmail());
-	ps.setString(4, utente.getPassword());
-	ps.setString(5, utente.getIndirizzo());
-	ps.setString(6, utente.getCitta());
-	ps.setString(7, utente.getCap());
-	ps.setString(8, utente.getStato());
-	ps.setString(9, utente.getTelefono());
-	ps.setString(10, utente.getPartitaIva());
-
-	ps.executeUpdate();
-
-	con.close();
+    public boolean save(Utente utente) throws SQLException {
+	return persistableSave(utente);
     }
 
     @Override
-    public void update(Utente utente) throws SQLException {
+    public boolean update(Utente utente) throws SQLException {
 
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("update " + getTableName()
-		+ " set Nome=?, Cognome=?, Email=?, Password=?, Indirizzo=?, Città=?, CAP=?, Stato=?, Telefono=?, PartitaIVA=? WHERE id=?");
-	ps.setString(1, utente.getNome());
-	ps.setString(2, utente.getCognome());
-	ps.setString(3, utente.getEmail());
-	ps.setString(4, utente.getPassword());
-	ps.setString(5, utente.getIndirizzo());
-	ps.setString(6, utente.getCitta());
-	ps.setString(7, utente.getCap());
-	ps.setString(8, utente.getStato());
-	ps.setString(9, utente.getTelefono());
-	ps.setString(10, utente.getPartitaIva());
-	ps.setInt(11, utente.getId());
-
-	ps.executeUpdate();
-
-	con.close();
+	return save(utente);
     }
 
     @Override
-    public void delete(Utente utente) throws SQLException {
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("delete from " + getTableName() + " where id = ?");
-	ps.setInt(1, utente.getId());
-	ps.executeUpdate();
-	con.close();
-    }
+    public boolean delete(Utente utente) throws SQLException {
+	EntityManager em = Em.createEntityManager();
+	try {
 
-    @Override
-    public String getTableName() {
-	return TABLE_NAME;
-    }
+	    em.getTransaction().begin();
+	    em.remove(utente);
+	    Em.closeEntityManager(em);
 
-    @Override
-    public String getColumns() {
-	return "(Nome, Cognome, Email, Password, Indirizzo, Città, CAP, Stato, Telefono, PartitaIVA)";
-    }
-
-    @Override
-    public Utente fromResultSetToBean(ResultSet rs) throws SQLException {
-
-	return new Utente();
+	} catch (Exception e) {
+	    em.getTransaction().rollback();
+	    System.out.println("Errore: " + e.getMessage());
+	    return false;
+	}
+	return true;
     }
 
 }

@@ -1,53 +1,44 @@
 package com.lynx.EFintus.commercio.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.lynx.EFintus.commercio.classes.MetodoPagamento;
 
+import logistica.Utility.Em;
+
 public class MetodoPagamentoDao extends GenericDao<MetodoPagamento> {
 
-    private static String TABLE_NAME = "metodo_pagamento";
-
     public MetodoPagamento getByName(String name) throws SQLException {
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("select * from " + getTableName());
-	ResultSet rs = ps.executeQuery();
-	MetodoPagamento metodoPagamento = this.fromResultSetToBean(rs);
-	con.close();
-	return metodoPagamento;
+	EntityManager em = Em.createEntityManager();
+	Query query = em.createQuery("select mp From metodo_pagamento mp WHERE mp.metodo_pagamento=:metodo_pagamento");
+	query.setParameter("metodo_pagamento", name);
+	MetodoPagamento results = (MetodoPagamento) query.getSingleResult();
+	Em.closeEntityManager(em);
+	if (results == null) {
+	    return results;
+	}
+	return null;
     }
 
     @Override
     public List<MetodoPagamento> getAll() throws SQLException {
-	List<MetodoPagamento> metodoPagamento = new ArrayList<MetodoPagamento>();
-
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("select * from " + getTableName());
-	ResultSet rs = ps.executeQuery();
-	while (rs.next()) {
-	    metodoPagamento.add(this.fromResultSetToBean(rs));
+	EntityManager em = Em.createEntityManager();
+	Query query = em.createQuery("select mp From metodo_pagamento mp");
+	List results = query.getResultList();
+	Em.closeEntityManager(em);
+	if (!results.isEmpty()) {
+	    return results;
 	}
-
-	con.close();
-
-	return metodoPagamento;
+	return null;
     }
 
     @Override
-    public void save(MetodoPagamento metodoPagamento) throws SQLException {
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("insert into " + getTableAndColumns() + " values (?)");
-
-	ps.setString(1, metodoPagamento.getMetodoPagamento());
-
-	ps.executeUpdate();
-
-	con.close();
+    public boolean save(MetodoPagamento metodoPagamento) throws SQLException {
+	return persistableSave(metodoPagamento);
 
     }
 
@@ -55,35 +46,28 @@ public class MetodoPagamentoDao extends GenericDao<MetodoPagamento> {
      * Not implemented method, use delete and save
      */
     @Override
-    public void update(MetodoPagamento metodoPagamento) throws SQLException {
+    public boolean update(MetodoPagamento metodoPagamento) throws SQLException {
 
 	// Not implemented
+	return false;
 
     }
 
     @Override
-    public void delete(MetodoPagamento metodoPagamento) throws SQLException {
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("delete from " + getTableName() + " where metodo_pagamento = ?");
-	ps.setString(1, metodoPagamento.getMetodoPagamento());
-	ps.executeUpdate();
-	con.close();
-    }
+    public boolean delete(MetodoPagamento metodoPagamento) throws SQLException {
+	EntityManager em = Em.createEntityManager();
+	try {
 
-    @Override
-    public MetodoPagamento fromResultSetToBean(ResultSet rs) throws SQLException {
-	MetodoPagamento metodoPagamento = new MetodoPagamento(rs.getString(1));
-	return metodoPagamento;
-    }
+	    em.getTransaction().begin();
+	    em.remove(metodoPagamento);
+	    Em.closeEntityManager(em);
 
-    @Override
-    public String getTableName() {
-	return TABLE_NAME;
-    }
+	} catch (Exception e) {
+	    em.getTransaction().rollback();
+	    System.out.println("Errore: " + e.getMessage());
+	    return false;
+	}
+	return true;
 
-    @Override
-    public String getColumns() {
-	return ("metodo_pagamento");
     }
-
 }

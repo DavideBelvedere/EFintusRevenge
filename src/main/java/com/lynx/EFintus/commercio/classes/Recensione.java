@@ -12,12 +12,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.lynx.EFintus.commercio.classes.persistable.Persistable;
 import com.lynx.EFintus.commercio.classes.primarykeys.RecensionePK;
 
 @Entity
 @Table(name = "tags_prodotto")
 @IdClass(RecensionePK.class)
-public class Recensione {
+public class Recensione implements Persistable {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

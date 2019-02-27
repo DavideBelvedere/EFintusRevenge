@@ -1,92 +1,62 @@
 package com.lynx.EFintus.commercio.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.lynx.EFintus.commercio.classes.Tags;
 
+import logistica.Utility.Em;
+
 public class TagsDao extends GenericDao<Tags> {
 
-    private String TABLE_NAME = "tags";
-
-    public Tags getById(int id) throws SQLException {
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("select * from " + getTableName() + " where id = ?");
-	ps.setInt(1, id);
-	ResultSet rs = ps.executeQuery();
-	con.close();
-	return fromResultSetToBean(rs);
+    public Tags getById(Integer id) throws SQLException {
+	return getById(id, Tags.class, true);
 
     }
 
     @Override
     public List<Tags> getAll() throws SQLException {
-	List<Tags> tags = new ArrayList<Tags>();
-
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("select * from " + getTableName());
-	ResultSet rs = ps.executeQuery();
-	while (rs.next()) {
-	    tags.add(this.fromResultSetToBean(rs));
+	EntityManager em = Em.createEntityManager();
+	Query query = em.createQuery("select t From tags t");
+	List results = query.getResultList();
+	Em.closeEntityManager(em);
+	if (!results.isEmpty()) {
+	    return results;
 	}
-
-	con.close();
-
-	return tags;
+	return null;
 
     }
 
     @Override
-    public void save(Tags tags) throws SQLException {
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("insert into " + getTableAndColumns() + " values (?)");
-
-	ps.setString(1, tags.getNome());
-
-	ps.executeUpdate();
-
-	con.close();
+    public boolean save(Tags tags) throws SQLException {
+	return persistableSave(tags);
     }
 
     @Override
-    public void update(Tags tags) throws SQLException {
+    public boolean update(Tags tags) throws SQLException {
 
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("update " + getTableName() + " set Nome=? WHERE id=?");
-	ps.setString(1, tags.getNome());
-	ps.setInt(2, tags.getId());
-
-	ps.executeUpdate();
-
-	con.close();
+	return save(tags);
     }
 
     @Override
-    public void delete(Tags tags) throws SQLException {
-	Connection con = getConnection();
-	PreparedStatement ps = con.prepareStatement("delete from " + getTableName() + " where id = ?");
-	ps.setInt(1, tags.getId());
-	ps.executeUpdate();
-	con.close();
+    public boolean delete(Tags tags) throws SQLException {
+	EntityManager em = Em.createEntityManager();
+	try {
+
+	    em.getTransaction().begin();
+	    em.remove(tags);
+	    Em.closeEntityManager(em);
+
+	} catch (Exception e) {
+	    em.getTransaction().rollback();
+	    System.out.println("Errore: " + e.getMessage());
+	    return false;
+	}
+	return true;
+
     }
 
-    @Override
-    public String getTableName() {
-	return TABLE_NAME;
-    }
-
-    @Override
-    public String getColumns() {
-	return "(Nome)";
-    }
-
-    @Override
-    public Tags fromResultSetToBean(ResultSet rs) throws SQLException {
-	Tags tags = new Tags(rs.getInt(1), rs.getString(2));
-	return tags;
-    }
 }

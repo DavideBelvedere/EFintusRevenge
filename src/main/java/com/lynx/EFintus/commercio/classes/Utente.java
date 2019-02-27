@@ -11,11 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.lynx.EFintus.commercio.classes.persistable.Persistable;
+
 import logistica.entities.Ordine;
 
 @Entity
 @Table(name = "utente")
-public class Utente {
+public class Utente implements Persistable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
