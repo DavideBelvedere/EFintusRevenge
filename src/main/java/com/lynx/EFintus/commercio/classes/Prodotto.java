@@ -32,14 +32,14 @@ public class Prodotto implements Persistable {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "Id_Produttore")
-    private Integer idProduttore;
+    private Produttore produttore;
 
     @Column(name = "Prezzo")
     private Double prezzo;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "Id_Categorie")
-    private Integer idCategorie;
+    private Categoria categoria;
 
     @Column(name = "Descrizione")
     private String descrizione;
@@ -93,12 +93,12 @@ public class Prodotto implements Persistable {
 	this.nome = nome;
     }
 
-    public Integer getIdProduttore() {
-	return idProduttore;
+    public Produttore getProduttore() {
+	return produttore;
     }
 
-    public void setIdProduttore(Integer idProduttore) {
-	this.idProduttore = idProduttore;
+    public void setProduttore(Produttore produttore) {
+	this.produttore = produttore;
     }
 
     public Double getPrezzo() {
@@ -109,12 +109,12 @@ public class Prodotto implements Persistable {
 	this.prezzo = prezzo;
     }
 
-    public Integer getIdCategorie() {
-	return idCategorie;
+    public Categoria getCategorie() {
+	return categoria;
     }
 
-    public void setIdCategorie(Integer idCategorie) {
-	this.idCategorie = idCategorie;
+    public void setCategorie(Categoria categoria) {
+	this.categoria = categoria;
     }
 
     public String getDescrizione() {

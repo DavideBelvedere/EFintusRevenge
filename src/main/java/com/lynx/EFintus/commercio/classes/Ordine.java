@@ -20,7 +20,7 @@ import com.lynx.EFintus.commercio.classes.persistable.Persistable;
 import logistica.entities.Corriere;
 
 @Entity
-@Table(name = "ordine")
+@Table(name = "ordine", schema = "efintus_commerciale")
 public class Ordine implements Persistable {
 
     @Id

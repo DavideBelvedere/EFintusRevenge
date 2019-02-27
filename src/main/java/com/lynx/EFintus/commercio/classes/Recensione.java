@@ -16,7 +16,7 @@ import com.lynx.EFintus.commercio.classes.persistable.Persistable;
 import com.lynx.EFintus.commercio.classes.primarykeys.RecensionePK;
 
 @Entity
-@Table(name = "tags_prodotto")
+@Table(name = "recensione")
 @IdClass(RecensionePK.class)
 public class Recensione implements Persistable {
 
