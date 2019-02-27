@@ -28,7 +28,7 @@ public class Categoria implements Persistable {
     @Column(name = "parentID")
     private Integer parentId;
 
-    @OneToMany(mappedBy = "prodotto")
+    @OneToMany(mappedBy = "categoria")
     private List<Prodotto> prodotti = new ArrayList<>();
 
     public Categoria() {

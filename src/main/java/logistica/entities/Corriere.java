@@ -30,7 +30,7 @@ public class Corriere implements Orm {
     private String cap;
 
     @OneToMany(mappedBy = "corriere")
-    private List<Ordine> ordini = new ArrayList<>();
+    private List<Ordine2> ordini = new ArrayList<>();
 
     public Corriere() {
     }
@@ -91,7 +91,7 @@ public class Corriere implements Orm {
         this.cap = cap;
     }
 
-    public List<Ordine> getOrdini() {
+    public List<Ordine2> getOrdini() {
         return ordini;
     }
 
@@ -99,8 +99,8 @@ public class Corriere implements Orm {
     //fa l'on delete set null
     @PreRemove
     public void removeForeignKey() {
-        for (Ordine ordine : ordini) {
-            ordine.setCorriere(null);
+        for (Ordine2 ordine2 : ordini) {
+            ordine2.setCorriere(null);
         }
     }
 

@@ -32,7 +32,7 @@ public class Ordine implements Persistable {
     private Date dataOrdine;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @Column(name = "Id_utente")
+    @JoinColumn(name = "Id_utente")
     private Utente utente;
 
     @Column(name = "Stato")
@@ -45,10 +45,10 @@ public class Ordine implements Persistable {
     @Column(name = "Id_Trasporto")
     private Integer idTrasporto;
 
-    @OneToMany(mappedBy = "recensione")
+    @OneToMany(mappedBy = "ordine")
     private List<Recensione> recensioni;
 
-    @OneToMany(mappedBy = "fattura")
+    @OneToMany(mappedBy = "ordine")
     private List<Fattura> fatture;
 
     public Ordine() {

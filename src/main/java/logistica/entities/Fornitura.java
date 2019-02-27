@@ -22,7 +22,7 @@ public class Fornitura {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_prodotto")
-    private Prodotto prodotto;
+    private Prodotto2 prodotto2;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_fornitore")
@@ -53,12 +53,12 @@ public class Fornitura {
         this.date = date;
     }
 
-    public Prodotto getProdotto() {
-        return prodotto;
+    public Prodotto2 getProdotto2() {
+        return prodotto2;
     }
 
-    public void setProdotto(Prodotto prodotto) {
-        this.prodotto = prodotto;
+    public void setProdotto2(Prodotto2 prodotto2) {
+        this.prodotto2 = prodotto2;
     }
 
     public Fornitore getFornitore() {

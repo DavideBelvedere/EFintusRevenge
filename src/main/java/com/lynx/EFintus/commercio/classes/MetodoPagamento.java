@@ -19,7 +19,7 @@ public class MetodoPagamento implements Persistable {
     @Column(name = "metodo_pagamento")
     private String metodoPagamento;
 
-    @OneToMany(mappedBy = "fattura")
+    @OneToMany(mappedBy = "metodoPagamento")
     private List<Fattura> fatture = new ArrayList<>();
 
     public MetodoPagamento() {

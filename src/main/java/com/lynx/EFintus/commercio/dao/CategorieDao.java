@@ -18,7 +18,7 @@ public class CategorieDao extends GenericDao<Categoria> {
     @Override
     public List<Categoria> getAll() throws SQLException {
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select c From categoria c");
+	Query query = em.createQuery("select c From Categoria c");
 	List results = query.getResultList();
 	Em.closeEntityManager(em);
 	if (!results.isEmpty()) {

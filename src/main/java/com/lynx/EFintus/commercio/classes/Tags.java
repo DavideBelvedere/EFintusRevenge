@@ -25,7 +25,7 @@ public class Tags implements Persistable {
     @Column(name = "Nome")
     private String nome;
 
-    @OneToMany(mappedBy = "tags_prodotto")
+    @OneToMany(mappedBy = "tags")
     private List<TagsProdotto> tagsProdottos = new ArrayList<>();
 
     public Tags(Integer id, String nome) {

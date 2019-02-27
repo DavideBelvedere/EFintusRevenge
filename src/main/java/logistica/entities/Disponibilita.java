@@ -9,7 +9,7 @@ import javax.persistence.*;
 @AssociationOverrides({//to override the mappings for the prodotto and fornitore attributes of the composite key.
         @AssociationOverride(name = "primaryKey.magazzino",
                 joinColumns = @JoinColumn(name = "id_magazzino")),
-        @AssociationOverride(name = "primaryKey.prodotto",
+        @AssociationOverride(name = "primaryKey.prodotto2",
                 joinColumns = @JoinColumn(name = "id_prodotto"))})
 public class Disponibilita {
     @EmbeddedId
@@ -22,12 +22,12 @@ public class Disponibilita {
     private char sezione;
 
     @Transient
-    public Prodotto getProdotto(){
-        return primaryKey.getProdotto();
+    public Prodotto2 getProdotto(){
+        return primaryKey.getProdotto2();
     }
 
-    public void setProdotto(Prodotto prodotto){
-        primaryKey.setProdotto(prodotto);
+    public void setProdotto(Prodotto2 prodotto2){
+        primaryKey.setProdotto2(prodotto2);
     }
 
 

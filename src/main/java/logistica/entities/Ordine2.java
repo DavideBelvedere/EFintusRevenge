@@ -15,7 +15,7 @@ import logistica.entities.superType.Orm;
 
 @Entity
 @Table(name = "ordine")
-public class Ordine implements Orm {
+public class Ordine2 implements Orm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_ordine")
@@ -33,7 +33,7 @@ public class Ordine implements Orm {
     @Column(name = "id_trasporto")
     private int id_trasporto;
 
-    public Ordine() {
+    public Ordine2() {
 
     }
 

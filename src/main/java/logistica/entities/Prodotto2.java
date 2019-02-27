@@ -8,23 +8,23 @@ import java.util.List;
 
 @Entity
 @Table(name = "prodotto")
-public class Prodotto implements Orm {
+public class Prodotto2 implements Orm {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_prodotto")
     private int id;
 
-    @OneToMany(mappedBy = "prodotto", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "prodotto2", cascade = CascadeType.ALL)
     private List<Fornitura> forniture = new ArrayList<Fornitura>();
 
-    @OneToMany(mappedBy = "primaryKey.prodotto", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "primaryKey.prodotto2", cascade = CascadeType.ALL)
     private List<Disponibilita> disponibilita = new ArrayList<Disponibilita>();
 
     public int getId() {
         return id;
     }
 
-    public Prodotto() {
+    public Prodotto2() {
     }
 
     public List<Fornitura> getForniture() {
@@ -54,7 +54,7 @@ public class Prodotto implements Orm {
     @PreRemove
     public void removeFromForniture(){
         for (Fornitura fornitura: forniture) {
-            fornitura.setProdotto(null);
+            fornitura.setProdotto2(null);
         }
     }
 }

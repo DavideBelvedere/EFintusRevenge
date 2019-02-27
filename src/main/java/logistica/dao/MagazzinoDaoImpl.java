@@ -5,7 +5,7 @@ import logistica.dao.interfaces.MagazzinoDao;
 import logistica.entities.Disponibilita;
 import logistica.entities.Lavoratore;
 import logistica.entities.Magazzino;
-import logistica.entities.Prodotto;
+import logistica.entities.Prodotto2;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -21,10 +21,10 @@ public class MagazzinoDaoImpl implements MagazzinoDao {
     }
 
     @Override
-    public List<Prodotto> getAllProductInWarehouse(int id_magazzino) {
+    public List<Prodotto2> getAllProductInWarehouse(int id_magazzino) {
         Magazzino magazzino = getById(id_magazzino);
         if (magazzino != null && magazzino.getDisponibilita() != null) {
-            List<Prodotto> prodotti = new ArrayList<>();
+            List<Prodotto2> prodotti = new ArrayList<>();
             for (Disponibilita disponibilita : magazzino.getDisponibilita()) {
                 if (disponibilita.getProdotto() != null) {
                     prodotti.add(disponibilita.getProdotto());

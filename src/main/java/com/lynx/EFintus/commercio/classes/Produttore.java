@@ -28,7 +28,7 @@ public class Produttore implements Persistable {
     @Column(name = "Indirizzo")
     private String indirizzo;
 
-    @Column(name = "Città")
+    @Column(name = "Cittï¿½")
     private String citta;
 
     @Column(name = "cap")
@@ -46,7 +46,7 @@ public class Produttore implements Persistable {
     @Column(name = "PartitaIVA")
     private String partitaIVA;
 
-    @OneToMany(mappedBy = "prodotto")
+    @OneToMany(mappedBy = "produttore")
     List<Prodotto> prodotti = new ArrayList<Prodotto>();
 
     public Produttore() {

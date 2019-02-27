@@ -2,14 +2,14 @@ package logistica.dao.interfaces;
 
 import logistica.entities.Fornitura;
 import logistica.entities.Magazzino;
-import logistica.entities.Prodotto;
+import logistica.entities.Prodotto2;
 
 import java.util.HashMap;
 import java.util.List;
 
 public interface ProdottoDao {
 
-    Prodotto getById(int id);
+    Prodotto2 getById(int id);
 
     /***
      *

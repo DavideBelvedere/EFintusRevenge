@@ -13,8 +13,6 @@ import javax.persistence.Table;
 
 import com.lynx.EFintus.commercio.classes.persistable.Persistable;
 
-import logistica.entities.Ordine;
-
 @Entity
 @Table(name = "utente")
 public class Utente implements Persistable {
@@ -57,10 +55,10 @@ public class Utente implements Persistable {
     @OneToMany(mappedBy = "utente")
     private List<Ordine> ordini = new ArrayList<>();
 
-    @OneToMany(mappedBy = "wishlist")
+    @OneToMany(mappedBy = "utente")
     private List<WishList> wishlists = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recensione")
+    @OneToMany(mappedBy = "utente")
     private List<Recensione> recensioni = new ArrayList<>();
 
     public Utente() {

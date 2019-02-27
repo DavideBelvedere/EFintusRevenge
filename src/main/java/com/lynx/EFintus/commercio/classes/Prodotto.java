@@ -62,16 +62,16 @@ public class Prodotto implements Persistable {
     @Column(name = "DataFineValidita")
     private Date dataFineValidita;
 
-    @OneToMany(mappedBy = "wishlist_prodotto")
+    @OneToMany(mappedBy = "prodotto")
     private List<WishlistProdotto> wishlistProdottos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "ordine_prodotto")
+    @OneToMany(mappedBy = "prodotto")
     private List<OrdineProdotto> ordineProdottos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "tags_prodotto")
+    @OneToMany(mappedBy = "prodotto")
     private List<TagsProdotto> tagsProdottos = new ArrayList<>();
 
-    @OneToMany(mappedBy = "recensione")
+    @OneToMany(mappedBy = "prodotto")
     private List<Recensione> recensioni = new ArrayList<>();
 
     public Prodotto() {

@@ -3,16 +3,7 @@ package com.lynx.EFintus.commercio.classes;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.lynx.EFintus.commercio.classes.persistable.Persistable;
 
@@ -26,13 +17,13 @@ public class WishList implements Persistable {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @Column(name = "Utente")
+    @JoinColumn(name = "Utente")
     private Utente utente;
 
     @Column(name = "Nome")
     private String nome;
 
-    @OneToMany(mappedBy = "wishlist_prodotto")
+    @OneToMany(mappedBy = "wishlist")
     private List<WishlistProdotto> wishlistProdottos = new ArrayList<>();
 
     public WishList() {
