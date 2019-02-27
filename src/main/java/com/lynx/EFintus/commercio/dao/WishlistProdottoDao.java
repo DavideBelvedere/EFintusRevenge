@@ -7,8 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.lynx.EFintus.commercio.classes.WishlistProdotto;
-
-import logistica.Utility.Em;
+import com.lynx.EFintus.commercio.utility.Em;
 
 public class WishlistProdottoDao extends GenericDao<WishlistProdotto> {
 

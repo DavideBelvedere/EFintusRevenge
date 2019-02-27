@@ -7,8 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.lynx.EFintus.commercio.classes.Utente;
-
-import logistica.Utility.Em;
+import com.lynx.EFintus.commercio.utility.Em;
 
 public class UtenteDao extends GenericDao<Utente> {
 

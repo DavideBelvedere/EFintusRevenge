@@ -7,8 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.lynx.EFintus.commercio.classes.Tags;
-
-import logistica.Utility.Em;
+import com.lynx.EFintus.commercio.utility.Em;
 
 public class TagsDao extends GenericDao<Tags> {
 
