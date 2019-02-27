@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface MagazzinoDao{
 
-    Magazzino getById(Integer id);
+    Magazzino getById(Integer id, boolean withRel);
 
     List<Prodotto> getAllProductInWarehouse(Integer id_magazzino);
 

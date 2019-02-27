@@ -3,6 +3,8 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
              http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+    <!--http://www.mastertheboss.com/jboss-server/jboss-datasource/how-to-configure-a-datasource-with-jboss-7-->
     <persistence-unit name="logistica" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
        <!-- wildfly-->
@@ -20,19 +22,6 @@
         <class>logistica.entities.Prodotto</class>
 
         <properties>
-            <!--Real Implementation
-          <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-
-          <property name="hibernate.connection.url" value="jdbc:mysql://10.9.129.35/logistica"/>
-          <property name="hibernate.connection.username" value="fintus"/>
-          <property name="hibernate.connection.password" value="P@ssword2018$"/>-->
-
-            <!--Test Implementation
-            <property name="hibernate.connection.url" value="jdbc:mysql://127.0.0.1:3306/logistica"/>
-            <property name="hibernate.connection.username" value="root"/>
-            <property name="hibernate.connection.password" value="rootroot"/>-->
-
-
             <property name="hibernate.connection.autocommit" value="false"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
             <property name="hibernate.connection.CharSet" value="utf8"/>

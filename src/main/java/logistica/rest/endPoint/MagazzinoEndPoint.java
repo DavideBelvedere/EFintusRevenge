@@ -18,12 +18,6 @@ public class MagazzinoEndPoint {
     @Produces(MediaType.APPLICATION_JSON)
     public MagazzinoResponse retrieveAllWarehouse() {
         MagazzinoResponse response = new MagazzinoResponse();
-        if( magazzinoDao.getAllWarehouse() == null) {
-        	System.out.println("------------------- NULLOO");
-        } else {
-            System.out.println("---------  Response Magazzino   ------------" + magazzinoDao.getAllWarehouse());
-
-        }
         response.setMagazzini(magazzinoDao.getAllWarehouse());
         return response;
     }
@@ -34,7 +28,9 @@ public class MagazzinoEndPoint {
     @Produces(MediaType.APPLICATION_JSON)
     public MagazzinoResponse retrieveById(MagazzinoRequest magazzinoRequest) {
         MagazzinoResponse response = new MagazzinoResponse();
-        response.addMagazzini(magazzinoDao.getById(magazzinoRequest.getId()));
+        response.addMagazzini(magazzinoDao.getById(magazzinoRequest.getId(),false));
         return response;
     }
+
+
 }

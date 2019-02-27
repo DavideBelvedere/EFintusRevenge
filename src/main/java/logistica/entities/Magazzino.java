@@ -36,15 +36,14 @@ public class Magazzino implements Orm {
     private Double capacita;
 
     @OneToMany(mappedBy = "magazzino", fetch = FetchType.LAZY)
-    private List<Lavoratore> lavoratori= new ArrayList<Lavoratore>();
+    private List<Lavoratore> lavoratori = new ArrayList<Lavoratore>();
 
     @OneToMany(mappedBy = "primaryKey.magazzino", cascade = CascadeType.ALL)
-    private List<Disponibilita> disponibilita =new ArrayList<Disponibilita>();
+    private List<Disponibilita> disponibilita = new ArrayList<Disponibilita>();
 
-    public Magazzino() {
-    }
 
-    public Magazzino(String via, String citta, String n_civico, String cap, Double metratura, Double altezza, Double capacita) {
+    public Magazzino(Integer id, String via, String citta, String n_civico, String cap, Double metratura, Double altezza, Double capacita) {
+        this.id = id;
         this.via = via;
         this.citta = citta;
         this.n_civico = n_civico;
