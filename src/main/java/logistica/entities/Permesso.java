@@ -28,11 +28,23 @@ public class Permesso implements Orm {
     )
     private List<Lavoratore> lavoratori = new ArrayList<Lavoratore>();
 
-    public Permesso(){}
+    public Permesso() {
+    }
 
     public Permesso(String tipo) {
         this.tipo = tipo;
     }
+
+    public Permesso(String tipo, List<Lavoratore> lavoratori) {
+        this.tipo = tipo;
+        this.lavoratori = lavoratori;
+    }
+
+    //constructor for query without relation
+    public Permesso(Integer id, String tipo) {
+        this.tipo = tipo;
+    }
+
 
     public Integer getId() {
         return id;

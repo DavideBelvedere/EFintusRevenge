@@ -18,6 +18,8 @@ public class MagazzinoRequest implements Serializable {
 
     private String citta;
 
+    private String nome;
+
     private String n_civico;
 
     private String cap;
@@ -115,6 +117,16 @@ public class MagazzinoRequest implements Serializable {
     @JsonGetter
     public List<Lavoratore> getLavoratori() {
         return lavoratori;
+    }
+
+    @JsonGetter
+    public String getNome() {
+        return nome;
+    }
+
+    @JsonSetter
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     @JsonSetter

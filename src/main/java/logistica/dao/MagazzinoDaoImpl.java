@@ -1,6 +1,6 @@
 package logistica.dao;
 
-import logistica.dao.Utility.JpaDao;
+import logistica.dao.SuperDao.JpaDao;
 import logistica.dao.interfaces.MagazzinoDao;
 import logistica.entities.Disponibilita;
 import logistica.entities.Lavoratore;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class MagazzinoDaoImpl extends JpaDao<Magazzino, Integer> implements MagazzinoDao {
 
-    private String baseQueryNoRel = "SELECT NEW Magazzino(m.id,m.via,m.citta,m.n_civico,m.cap,m.metratura,m.altezza,m.capacita) FROM Magazzino m"; //JOIN FETCH c.ordini
+    private String baseQueryNoRel = "SELECT NEW Magazzino(m.id,m.via,m.citta,m.n_civico,m.cap,m.metratura,m.altezza,m.capacita,m.nome) FROM Magazzino m"; //JOIN FETCH c.ordini
 
     public MagazzinoDaoImpl() {
         super(Magazzino.class);

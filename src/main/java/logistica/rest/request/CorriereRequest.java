@@ -3,6 +3,7 @@ package logistica.rest.request;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import logistica.entities.Corriere;
 import logistica.entities.Ordine;
 
 import javax.persistence.Column;
@@ -96,7 +97,17 @@ public class CorriereRequest implements Serializable {
         this.ordini = ordini;
     }
 
-    public void addOrdine(Ordine ordine){
+    public void addOrdine(Ordine ordine) {
         ordini.add(ordine);
+    }
+
+
+    public Corriere translateInOrmObjectForPersist(boolean withRel) {
+        if (withRel) {
+            return new Corriere(this.nome, this.via, this.citta, this.n_civico, this.cap, this.ordini);
+
+        } else {
+            return new Corriere(this.nome, this.via, this.citta, this.n_civico, this.cap);
+        }
     }
 }

@@ -14,6 +14,9 @@ public class Prodotto implements Orm {
     @Column(name = "id_prodotto")
     private Integer id;
 
+    @Column(name = "nome")
+    private String nome;
+
     @OneToMany(mappedBy = "prodotto", cascade = CascadeType.ALL)
     private List<Fornitura> forniture = new ArrayList<Fornitura>();
 
@@ -26,6 +29,23 @@ public class Prodotto implements Orm {
 
     public Prodotto() {
     }
+
+    public Prodotto(String nome) {
+        this.nome = nome;
+    }
+
+    //constructor for query without relation
+    public Prodotto(Integer id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
+
+    public Prodotto(String nome, List<Fornitura> forniture, List<Disponibilita> disponibilita) {
+        this.nome = nome;
+        this.forniture = forniture;
+        this.disponibilita = disponibilita;
+    }
+
 
     public List<Fornitura> getForniture() {
         return forniture;
@@ -51,9 +71,18 @@ public class Prodotto implements Orm {
         this.disponibilita.add(disponibilita);
     }
 
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String name) {
+        this.nome = name;
+    }
+
     @PreRemove
-    public void removeFromForniture(){
-        for (Fornitura fornitura: forniture) {
+    public void removeFromForniture() {
+        for (Fornitura fornitura : forniture) {
             fornitura.setProdotto(null);
         }
     }

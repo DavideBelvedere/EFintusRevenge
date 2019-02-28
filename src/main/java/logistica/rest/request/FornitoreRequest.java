@@ -2,6 +2,7 @@ package logistica.rest.request;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import logistica.entities.Fornitore;
 import logistica.entities.Fornitura;
 
 import java.io.Serializable;
@@ -93,7 +94,15 @@ public class FornitoreRequest implements Serializable {
         this.forniture = forniture;
     }
 
-    public void addFornitura(Fornitura fornitura){
+    public void addFornitura(Fornitura fornitura) {
         this.forniture.add(fornitura);
+    }
+
+    public Fornitore translateInOrmObjectForPersist(boolean withRel) {
+        if (withRel) {
+            return new Fornitore(this.name, this.via, this.citta, this.n_civico, this.cap, this.forniture);
+        } else {
+            return new Fornitore(this.name, this.via, this.citta, this.n_civico, this.cap);
+        }
     }
 }

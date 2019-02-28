@@ -32,7 +32,35 @@ public class Fornitore implements Orm {
     @OneToMany(mappedBy = "fornitore", cascade = CascadeType.ALL)
     private List<Fornitura> forniture = new ArrayList<Fornitura>();
 
-    public Fornitore(){}
+    public Fornitore() {
+    }
+
+    public Fornitore(String name, String via, String citta, String n_civico, String cap, List<Fornitura> forniture) {
+        this.name = name;
+        this.via = via;
+        this.citta = citta;
+        this.n_civico = n_civico;
+        this.cap = cap;
+        this.forniture = forniture;
+    }
+
+    public Fornitore(String name, String via, String citta, String n_civico, String cap) {
+        this.name = name;
+        this.via = via;
+        this.citta = citta;
+        this.n_civico = n_civico;
+        this.cap = cap;
+    }
+
+    //constructor for query without relation
+    public Fornitore(Integer id, String name, String via, String citta, String n_civico, String cap) {
+        this.id = id;
+        this.name = name;
+        this.via = via;
+        this.citta = citta;
+        this.n_civico = n_civico;
+        this.cap = cap;
+    }
 
     public Fornitore(String name) {
         this.name = name;
@@ -59,13 +87,13 @@ public class Fornitore implements Orm {
         this.forniture = forniture;
     }
 
-    public void addFornitura(Fornitura f){
+    public void addFornitura(Fornitura f) {
         forniture.add(f);
     }
 
     @PreRemove
-    public void removeFromForniture(){
-        for (Fornitura fornitura: forniture) {
+    public void removeFromForniture() {
+        for (Fornitura fornitura : forniture) {
             fornitura.setFornitore(null);
         }
     }

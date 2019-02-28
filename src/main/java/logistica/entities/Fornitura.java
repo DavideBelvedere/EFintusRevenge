@@ -10,7 +10,7 @@ public class Fornitura {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_fornitura")
+    @Column(name = "id_fornitura")
     private Integer id;
 
     @Column(name = "quantita")
@@ -28,13 +28,21 @@ public class Fornitura {
     @JoinColumn(name = "id_fornitore")
     private Fornitore fornitore;
 
-    public Fornitura(){ }
+    public Fornitura() {
+    }
 
-    public Fornitura( Integer quantita, Date date) {
+    public Fornitura(Integer id, Integer quantita, Date date) {
+        this.id = id;
         this.quantita = quantita;
         this.date = date;
     }
 
+    public Fornitura(Integer quantita, Date date, Prodotto prodotto, Fornitore fornitore) {
+        this.quantita = quantita;
+        this.date = date;
+        this.prodotto = prodotto;
+        this.fornitore = fornitore;
+    }
 
 
     public Integer getQuantita() {

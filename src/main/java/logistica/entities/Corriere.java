@@ -35,7 +35,26 @@ public class Corriere implements Orm {
     public Corriere() {
     }
 
+    public Corriere(String nome, String via, String citta, String n_civico, String cap, List<Ordine> ordini) {
+        this.nome = nome;
+        this.via = via;
+        this.citta = citta;
+        this.n_civico = n_civico;
+        this.cap = cap;
+        this.ordini = ordini;
+    }
+
     public Corriere(String nome, String via, String citta, String n_civico, String cap) {
+        this.via = via;
+        this.citta = citta;
+        this.n_civico = n_civico;
+        this.cap = cap;
+
+    }
+
+    //constructor for query without relation
+    public Corriere(Integer id, String nome, String via, String citta, String n_civico, String cap) {
+        this.id = id;
         this.nome = nome;
         this.via = via;
         this.citta = citta;

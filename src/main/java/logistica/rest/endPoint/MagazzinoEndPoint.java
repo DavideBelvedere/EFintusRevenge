@@ -1,8 +1,11 @@
 package logistica.rest.endPoint;
 
 import logistica.dao.MagazzinoDaoImpl;
+import logistica.entities.Lavoratore;
+import logistica.entities.Magazzino;
+import logistica.entities.Prodotto;
 import logistica.rest.request.MagazzinoRequest;
-import logistica.rest.response.MagazzinoResponse;
+import logistica.rest.response.ResponsePO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -10,15 +13,15 @@ import javax.ws.rs.core.MediaType;
 @Path("/magazzino")
 public class MagazzinoEndPoint {
 
-	private MagazzinoDaoImpl magazzinoDao = new MagazzinoDaoImpl();
+    private MagazzinoDaoImpl magazzinoDao = new MagazzinoDaoImpl();
 
     @GET
     @Path("/getAll")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public MagazzinoResponse retrieveAllWarehouse() {
-        MagazzinoResponse response = new MagazzinoResponse();
-        response.setMagazzini(magazzinoDao.getAllWarehouse());
+    public ResponsePO<Magazzino> retrieveAllWarehouse() {
+        ResponsePO<Magazzino> response = new ResponsePO<>();
+        response.setResponseList(magazzinoDao.getAllWarehouse());
         return response;
     }
 
@@ -26,11 +29,35 @@ public class MagazzinoEndPoint {
     @Path("/getById")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public MagazzinoResponse retrieveById(MagazzinoRequest magazzinoRequest) {
-        MagazzinoResponse response = new MagazzinoResponse();
-        response.addMagazzini(magazzinoDao.getById(magazzinoRequest.getId(),false));
+    public ResponsePO<Magazzino> retrieveById(MagazzinoRequest magazzinoRequest) {
+        ResponsePO<Magazzino> response = new ResponsePO<>();
+        response.addResponsePO(magazzinoDao.getById(magazzinoRequest.getId(), false));
         return response;
     }
+    @POST
+    @Path("/getWorkers")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponsePO<Lavoratore> retrieveWorkersFromWarehouse(MagazzinoRequest magazzinoRequest) {
+        ResponsePO<Lavoratore> lavoratoreResponse = new ResponsePO<>();
+        lavoratoreResponse.setResponseList(magazzinoDao.getAllWorkersInWarehouse(magazzinoRequest.getId()));
+        return lavoratoreResponse;
+    }
+
+
+
+
+    @POST
+    @Path("/getById")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponsePO<Prodotto> retrieveProductsFromWarehouse(MagazzinoRequest magazzinoRequest) {
+        ResponsePO<Prodotto> response = new ResponsePO<>();
+        response.setResponseList(magazzinoDao.getAllProductInWarehouse(magazzinoRequest.getId()));
+        return response;
+    }
+
+
 
 
 }

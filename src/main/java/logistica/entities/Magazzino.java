@@ -17,6 +17,9 @@ public class Magazzino implements Orm {
     @Column(name = "via", length = 100)
     private String via;
 
+    @Column(name= "nome")
+    private String nome;
+
     @Column(name = "citta", length = 100)
     private String citta;
 
@@ -41,8 +44,35 @@ public class Magazzino implements Orm {
     @OneToMany(mappedBy = "primaryKey.magazzino", cascade = CascadeType.ALL)
     private List<Disponibilita> disponibilita = new ArrayList<Disponibilita>();
 
+    public Magazzino(){}
 
-    public Magazzino(Integer id, String via, String citta, String n_civico, String cap, Double metratura, Double altezza, Double capacita) {
+    public Magazzino(String via, String nome, String citta, String n_civico, String cap, Double metratura, Double altezza, Double capacita, List<Lavoratore> lavoratori, List<Disponibilita> disponibilita) {
+        this.via = via;
+        this.nome = nome;
+        this.citta = citta;
+        this.n_civico = n_civico;
+        this.cap = cap;
+        this.metratura = metratura;
+        this.altezza = altezza;
+        this.capacita = capacita;
+        this.lavoratori = lavoratori;
+        this.disponibilita = disponibilita;
+    }
+
+    public Magazzino(String via, String nome, String citta, String n_civico, String cap, Double metratura, Double altezza, Double capacita) {
+        this.via = via;
+        this.nome = nome;
+        this.citta = citta;
+        this.n_civico = n_civico;
+        this.cap = cap;
+        this.metratura = metratura;
+        this.altezza = altezza;
+        this.capacita = capacita;
+    }
+
+    //constructor for query without relation
+    public Magazzino(Integer id, String via, String citta, String n_civico, String cap, Double metratura, Double altezza, Double capacita, String nome) {
+        this.nome= nome;
         this.id = id;
         this.via = via;
         this.citta = citta;
@@ -57,6 +87,13 @@ public class Magazzino implements Orm {
         return id;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public String getVia() {
         return via;

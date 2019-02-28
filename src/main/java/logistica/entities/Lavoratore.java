@@ -66,6 +66,19 @@ public class Lavoratore implements Orm {
         this.data_nascita = data_nascita;
     }
 
+    public Lavoratore(String id, String nome, String cognome, String via, String citta, String n_civico, String cap, Date data_nascita, Magazzino magazzino, List<Permesso> permessi) {
+        this.id = id;
+        this.nome = nome;
+        this.cognome = cognome;
+        this.via = via;
+        this.citta = citta;
+        this.n_civico = n_civico;
+        this.cap = cap;
+        this.data_nascita = data_nascita;
+        this.magazzino = magazzino;
+        this.permessi = permessi;
+    }
+
     public String getId() {
         return id;
     }
