@@ -30,12 +30,12 @@ public class WishListDao extends GenericDao<WishList> {
     }
 
     @Override
-    public boolean save(WishList wishLists) throws SQLException {
-	return persistableSave(wishLists);
+    public WishList save(WishList wishLists) throws SQLException {
+	return (WishList)persistableSave(wishLists);
     }
 
     @Override
-    public boolean update(WishList wishLists) throws SQLException {
+    public WishList update(WishList wishLists) throws SQLException {
 
 	return save(wishLists);
     }

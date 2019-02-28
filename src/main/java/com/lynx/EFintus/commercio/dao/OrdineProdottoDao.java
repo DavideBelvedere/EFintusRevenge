@@ -39,12 +39,12 @@ public class OrdineProdottoDao extends GenericDao<OrdineProdotto> {
     }
 
     @Override
-    public boolean save(OrdineProdotto ordersProducts) throws SQLException {
-	return persistableSave(ordersProducts);
+    public OrdineProdotto save(OrdineProdotto ordersProducts) throws SQLException {
+	return (OrdineProdotto) persistableSave(ordersProducts);
     }
 
     @Override
-    public boolean update(OrdineProdotto ordersProducts) throws SQLException {
+    public OrdineProdotto update(OrdineProdotto ordersProducts) throws SQLException {
 
 	return this.save(ordersProducts);
     }

@@ -28,12 +28,12 @@ public class ProduttoreDao extends GenericDao<Produttore> {
     }
 
     @Override
-    public boolean save(Produttore produttore) throws SQLException {
-	return persistableSave(produttore);
+    public Produttore save(Produttore produttore) throws SQLException {
+	return (Produttore)persistableSave(produttore);
     }
 
     @Override
-    public boolean update(Produttore produttore) throws SQLException {
+    public Produttore update(Produttore produttore) throws SQLException {
 	return save(produttore);
     }
 

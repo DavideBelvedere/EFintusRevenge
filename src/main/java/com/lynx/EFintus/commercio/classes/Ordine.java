@@ -38,9 +38,8 @@ public class Ordine implements Persistable {
     @Column(name = "Stato")
     private String stato;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "Id_Corriere")
-    private Corriere corriere;
+    @Column (name = "Id_Corriere")
+    private Integer corriere;
 
     @Column(name = "Id_Trasporto")
     private Integer idTrasporto;
@@ -86,11 +85,11 @@ public class Ordine implements Persistable {
 	this.stato = stato;
     }
 
-    public Corriere getCorriere() {
+    public Integer getCorriere() {
 	return corriere;
     }
 
-    public void setCorriere(Corriere corriere) {
+    public void setCorriere(Integer corriere) {
 	this.corriere = corriere;
     }
 

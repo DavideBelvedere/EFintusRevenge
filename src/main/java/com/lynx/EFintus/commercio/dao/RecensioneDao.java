@@ -38,12 +38,12 @@ public class RecensioneDao extends GenericDao<Recensione> {
     }
 
     @Override
-    public boolean save(Recensione recensione) throws SQLException {
-	return persistableSave(recensione);
+    public Recensione save(Recensione recensione) throws SQLException {
+	return (Recensione)persistableSave(recensione);
     }
 
     @Override
-    public boolean update(Recensione recensione) throws SQLException {
+    public Recensione update(Recensione recensione) throws SQLException {
 	return save(recensione);
     }
 

@@ -36,8 +36,8 @@ public class MetodoPagamentoDao extends GenericDao<MetodoPagamento> {
     }
 
     @Override
-    public boolean save(MetodoPagamento metodoPagamento) throws SQLException {
-	return persistableSave(metodoPagamento);
+    public MetodoPagamento save(MetodoPagamento metodoPagamento) throws SQLException {
+	return (MetodoPagamento) persistableSave(metodoPagamento);
 
     }
 
@@ -45,10 +45,10 @@ public class MetodoPagamentoDao extends GenericDao<MetodoPagamento> {
      * Not implemented method, use delete and save
      */
     @Override
-    public boolean update(MetodoPagamento metodoPagamento) throws SQLException {
+    public MetodoPagamento update(MetodoPagamento metodoPagamento) throws SQLException {
 
 	// Not implemented
-	return false;
+	return null;
 
     }
 

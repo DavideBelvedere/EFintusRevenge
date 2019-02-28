@@ -30,12 +30,12 @@ public class TagsDao extends GenericDao<Tags> {
     }
 
     @Override
-    public boolean save(Tags tags) throws SQLException {
-	return persistableSave(tags);
+    public Tags save(Tags tags) throws SQLException {
+	return (Tags)persistableSave(tags);
     }
 
     @Override
-    public boolean update(Tags tags) throws SQLException {
+    public Tags update(Tags tags) throws SQLException {
 
 	return save(tags);
     }

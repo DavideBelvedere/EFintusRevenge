@@ -50,8 +50,8 @@ public class TagsProdottoDao extends GenericDao<TagsProdotto> {
     }
 
     @Override
-    public boolean save(TagsProdotto tagsProdotto) throws SQLException {
-	return persistableSave(tagsProdotto);
+    public TagsProdotto save(TagsProdotto tagsProdotto) throws SQLException {
+	return (TagsProdotto)persistableSave(tagsProdotto);
 
     }
 
@@ -59,7 +59,7 @@ public class TagsProdottoDao extends GenericDao<TagsProdotto> {
      * Not implemented method, use delete and save
      */
     @Override
-    public boolean update(TagsProdotto tagsProdotto) throws SQLException {
+    public TagsProdotto update(TagsProdotto tagsProdotto) throws SQLException {
 	return save(tagsProdotto);
 
     }

@@ -5,24 +5,26 @@ import javax.persistence.EntityManager;
 import com.lynx.EFintus.commercio.classes.persistable.Persistable;
 import com.lynx.EFintus.commercio.interfaces.Dao;
 import com.lynx.EFintus.commercio.utility.Em;
+import org.hibernate.Session;
 
 public abstract class GenericDao<T> implements Dao<T> {
 
-    public static boolean persistableSave(Persistable object) {
-	EntityManager em = Em.createEntityManager();
-	try {
-	    em.getTransaction().begin();
-	    em.persist(object);
-	    Em.closeEntityManager(em);
-	    em.getTransaction().commit();
-	} catch (Exception e) {
-	    em.getTransaction().rollback();
-	    System.out.println("Errore: " + e.getMessage());
-	    return false;
-	}
-	return true;
+    public static Persistable persistableSave(Persistable object) {
+		EntityManager em = Em.createEntityManager();
+		try {
+			em.getTransaction().begin();
+			em.persist(object);
+			Em.closeEntityManager(em);
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore: " + e.getMessage());
+			return null;
+		}
+		return object;
 
-    }
+	}
+
 
     /***
      *

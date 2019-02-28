@@ -28,13 +28,13 @@ public class FatturaDao extends GenericDao<Fattura> {
     }
 
     @Override
-    public boolean save(Fattura fattura) throws SQLException {
-	return persistableSave(fattura);
+    public Fattura save(Fattura fattura) throws SQLException {
+	return (Fattura)persistableSave(fattura);
 
     }
 
     @Override
-    public boolean update(Fattura fattura) throws SQLException {
+    public Fattura update(Fattura fattura) throws SQLException {
 	return this.save(fattura);
 
     }

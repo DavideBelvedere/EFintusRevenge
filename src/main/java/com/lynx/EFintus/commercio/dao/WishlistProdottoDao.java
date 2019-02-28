@@ -50,8 +50,8 @@ public class WishlistProdottoDao extends GenericDao<WishlistProdotto> {
     }
 
     @Override
-    public boolean save(WishlistProdotto wishlistProdotto) throws SQLException {
-	return persistableSave(wishlistProdotto);
+    public WishlistProdotto save(WishlistProdotto wishlistProdotto) throws SQLException {
+	return (WishlistProdotto)persistableSave(wishlistProdotto);
 
     }
 
@@ -59,9 +59,9 @@ public class WishlistProdottoDao extends GenericDao<WishlistProdotto> {
      * Not implemented method, use delete and save
      */
     @Override
-    public boolean update(WishlistProdotto t) throws SQLException {
+    public WishlistProdotto update(WishlistProdotto t) throws SQLException {
 	// TODO Auto-generated method stub
-	return false;
+	return null;
     }
 
     @Override

@@ -30,12 +30,12 @@ public class UtenteDao extends GenericDao<Utente> {
     }
 
     @Override
-    public boolean save(Utente utente) throws SQLException {
-	return persistableSave(utente);
+    public Utente save(Utente utente) throws SQLException {
+	return (Utente)persistableSave(utente);
     }
 
     @Override
-    public boolean update(Utente utente) throws SQLException {
+    public Utente update(Utente utente) throws SQLException {
 
 	return save(utente);
     }

@@ -30,12 +30,12 @@ public class ProdottoDao extends GenericDao<Prodotto> {
     }
 
     @Override
-    public boolean save(Prodotto products) throws SQLException {
-	return persistableSave(products);
+    public Prodotto save(Prodotto products) throws SQLException {
+	return (Prodotto)persistableSave(products);
     }
 
     @Override
-    public boolean update(Prodotto products) throws SQLException {
+    public Prodotto update(Prodotto products) throws SQLException {
 
 	return save(products);
     }

@@ -28,14 +28,14 @@ public class OrdineDao extends GenericDao<Ordine> {
     }
 
     @Override
-    public boolean save(Ordine ordine) throws SQLException {
+    public Ordine save(Ordine ordine) throws SQLException {
 
-	return persistableSave(ordine);
+	return (Ordine)persistableSave(ordine);
 
     }
 
     @Override
-    public boolean update(Ordine ordine) throws SQLException {
+    public Ordine update(Ordine ordine) throws SQLException {
 	return this.save(ordine);
 
     }

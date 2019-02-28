@@ -28,12 +28,12 @@ public class CategorieDao extends GenericDao<Categoria> {
     }
 
     @Override
-    public boolean save(Categoria categoria) throws SQLException {
-	return persistableSave(categoria);
+    public Categoria save(Categoria categoria) throws SQLException {
+	    return (Categoria)persistableSave(categoria);
     }
 
     @Override
-    public boolean update(Categoria categoria) throws SQLException {
+    public Categoria update(Categoria categoria) throws SQLException {
 
 	return this.save(categoria);
 
