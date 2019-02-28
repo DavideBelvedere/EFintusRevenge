@@ -14,7 +14,7 @@ public class WishlistProdottoDao extends GenericDao<WishlistProdotto> {
     public List<WishlistProdotto> getByIdWishlist(Integer idWishlist) throws SQLException {
 
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select wp From wishlist_prodotto wp WHERE tp.Id_Wishlist=:Id_Wishlist");
+	Query query = em.createQuery("select wp From WishlistProdotto wp WHERE tp.Id_Wishlist=:Id_Wishlist");
 	query.setParameter("Id_Wishlist", idWishlist);
 	List results = query.getResultList();
 	Em.closeEntityManager(em);
@@ -27,7 +27,7 @@ public class WishlistProdottoDao extends GenericDao<WishlistProdotto> {
     public List<WishlistProdotto> getByIdProdotto(Integer idProdotto) throws SQLException {
 
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select wp From wishlist_prodotto wp WHERE tp.Id_Prodotto=:Id_Prodotto");
+	Query query = em.createQuery("select wp From WishlistProdotto wp WHERE tp.Id_Prodotto=:Id_Prodotto");
 	query.setParameter("Id_Prodotto", idProdotto);
 	List results = query.getResultList();
 	Em.closeEntityManager(em);
@@ -40,7 +40,7 @@ public class WishlistProdottoDao extends GenericDao<WishlistProdotto> {
     @Override
     public List<WishlistProdotto> getAll() throws SQLException {
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select wp From wishlist_prodotto wp");
+	Query query = em.createQuery("select wp From WishlistProdotto wp");
 	List results = query.getResultList();
 	Em.closeEntityManager(em);
 	if (!results.isEmpty()) {
@@ -66,19 +66,7 @@ public class WishlistProdottoDao extends GenericDao<WishlistProdotto> {
 
     @Override
     public boolean delete(WishlistProdotto wishlistProdotto) throws SQLException {
-	EntityManager em = Em.createEntityManager();
-	try {
-
-	    em.getTransaction().begin();
-	    em.remove(wishlistProdotto);
-	    Em.closeEntityManager(em);
-
-	} catch (Exception e) {
-	    em.getTransaction().rollback();
-	    System.out.println("Errore: " + e.getMessage());
-	    return false;
-	}
-	return true;
+		return persistableDelete(wishlistProdotto);
 
     }
 

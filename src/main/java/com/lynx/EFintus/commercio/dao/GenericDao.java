@@ -14,6 +14,7 @@ public abstract class GenericDao<T> implements Dao<T> {
 	    em.getTransaction().begin();
 	    em.persist(object);
 	    Em.closeEntityManager(em);
+	    em.getTransaction().commit();
 	} catch (Exception e) {
 	    em.getTransaction().rollback();
 	    System.out.println("Errore: " + e.getMessage());
@@ -38,5 +39,22 @@ public abstract class GenericDao<T> implements Dao<T> {
 	Em.closeEntityManager(em);
 	return ormObject;
     }
+
+	public static boolean persistableDelete(Persistable object) {
+		EntityManager em = Em.createEntityManager();
+		try {
+
+			em.getTransaction().begin();
+			em.remove(object);
+			Em.closeEntityManager(em);
+			em.getTransaction().commit();
+
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			System.out.println("Errore: " + e.getMessage());
+			return false;
+		}
+		return true;
+	}
 
 }

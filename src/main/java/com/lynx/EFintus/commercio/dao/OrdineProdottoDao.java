@@ -14,7 +14,7 @@ public class OrdineProdottoDao extends GenericDao<OrdineProdotto> {
     public OrdineProdotto getById(Integer idProdotto, Integer idOrdine) throws SQLException {
 	EntityManager em = Em.createEntityManager();
 	Query query = em.createQuery(
-		"select op From ordine_prodotto op WHERE op.Id_prodotto=:Id_prodotto & op.Id_ordine=:Id_ordine");
+		"select op From OrdineProdotto op WHERE op.Id_prodotto=:Id_prodotto & op.Id_ordine=:Id_ordine");
 	query.setParameter("Id_prodotto", idProdotto);
 	query.setParameter("Id_ordine", idOrdine);
 	OrdineProdotto results = (OrdineProdotto) query.getSingleResult();
@@ -28,7 +28,7 @@ public class OrdineProdottoDao extends GenericDao<OrdineProdotto> {
     @Override
     public List<OrdineProdotto> getAll() throws SQLException {
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select op From ordine_prodotto op");
+	Query query = em.createQuery("select op From OrdineProdotto op");
 	List results = query.getResultList();
 	Em.closeEntityManager(em);
 	if (!results.isEmpty()) {
@@ -51,19 +51,7 @@ public class OrdineProdottoDao extends GenericDao<OrdineProdotto> {
 
     @Override
     public boolean delete(OrdineProdotto ordersProducts) throws SQLException {
-	EntityManager em = Em.createEntityManager();
-	try {
-
-	    em.getTransaction().begin();
-	    em.remove(ordersProducts);
-	    Em.closeEntityManager(em);
-
-	} catch (Exception e) {
-	    em.getTransaction().rollback();
-	    System.out.println("Errore: " + e.getMessage());
-	    return false;
-	}
-	return true;
+		return persistableDelete(ordersProducts);
     }
 
 }

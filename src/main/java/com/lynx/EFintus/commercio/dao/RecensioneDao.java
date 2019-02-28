@@ -14,7 +14,7 @@ public class RecensioneDao extends GenericDao<Recensione> {
     public Recensione getByID(Integer id_utente, Integer id_prodotto) throws SQLException {
 	EntityManager em = Em.createEntityManager();
 	Query query = em
-		.createQuery("select r From recensione r WHERE op.Id_prodotto=:Id_prodotto & op.Id_utente=:Id_utente");
+		.createQuery("select r From Recensione r WHERE op.Id_prodotto=:Id_prodotto & op.Id_utente=:Id_utente");
 	query.setParameter("Id_prodotto", id_prodotto);
 	query.setParameter("Id_utente", id_utente);
 	Recensione results = (Recensione) query.getSingleResult();
@@ -28,7 +28,7 @@ public class RecensioneDao extends GenericDao<Recensione> {
     @Override
     public List<Recensione> getAll() throws SQLException {
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select r From recensione r");
+	Query query = em.createQuery("select r From Recensione r");
 	List results = query.getResultList();
 	Em.closeEntityManager(em);
 	if (!results.isEmpty()) {
@@ -49,19 +49,7 @@ public class RecensioneDao extends GenericDao<Recensione> {
 
     @Override
     public boolean delete(Recensione recensione) throws SQLException {
-	EntityManager em = Em.createEntityManager();
-	try {
-
-	    em.getTransaction().begin();
-	    em.remove(recensione);
-	    Em.closeEntityManager(em);
-
-	} catch (Exception e) {
-	    em.getTransaction().rollback();
-	    System.out.println("Errore: " + e.getMessage());
-	    return false;
-	}
-	return true;
+		return persistableDelete(recensione);
     }
 
 }

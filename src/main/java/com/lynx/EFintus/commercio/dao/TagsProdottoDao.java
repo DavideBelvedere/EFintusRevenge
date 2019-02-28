@@ -13,7 +13,7 @@ public class TagsProdottoDao extends GenericDao<TagsProdotto> {
 
     public List<TagsProdotto> getByIdTags(Integer idTags) throws SQLException {
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select tp From tags_prodotto tp WHERE tp.Id_Tags=:Id_Tags");
+	Query query = em.createQuery("select tp From TagsProdotto tp WHERE tp.Id_Tags=:Id_Tags");
 	query.setParameter("Id_Tags", idTags);
 	List results = query.getResultList();
 	Em.closeEntityManager(em);
@@ -26,7 +26,7 @@ public class TagsProdottoDao extends GenericDao<TagsProdotto> {
     public List<TagsProdotto> getByIdProdotto(Integer idProdotto) throws SQLException {
 
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select tp From tags_prodotto tp WHERE tp.Id_Prodotto=:Id_Prodotto");
+	Query query = em.createQuery("select tp From TagsProdotto tp WHERE tp.Id_Prodotto=:Id_Prodotto");
 	query.setParameter("Id_Prodotto", idProdotto);
 	List results = query.getResultList();
 	Em.closeEntityManager(em);
@@ -40,7 +40,7 @@ public class TagsProdottoDao extends GenericDao<TagsProdotto> {
     public List<TagsProdotto> getAll() throws SQLException {
 
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select tp From tags_prodotto tp");
+	Query query = em.createQuery("select tp From TagsProdotto tp");
 	List results = query.getResultList();
 	Em.closeEntityManager(em);
 	if (!results.isEmpty()) {
@@ -66,19 +66,7 @@ public class TagsProdottoDao extends GenericDao<TagsProdotto> {
 
     @Override
     public boolean delete(TagsProdotto tagsProdotto) throws SQLException {
-	EntityManager em = Em.createEntityManager();
-	try {
-
-	    em.getTransaction().begin();
-	    em.remove(tagsProdotto);
-	    Em.closeEntityManager(em);
-
-	} catch (Exception e) {
-	    em.getTransaction().rollback();
-	    System.out.println("Errore: " + e.getMessage());
-	    return false;
-	}
-	return true;
+		return persistableDelete(tagsProdotto);
 
     }
 

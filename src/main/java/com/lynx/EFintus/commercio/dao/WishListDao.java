@@ -19,7 +19,7 @@ public class WishListDao extends GenericDao<WishList> {
     @Override
     public List<WishList> getAll() throws SQLException {
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select w From wishlist w");
+	Query query = em.createQuery("select w From Wishlist w");
 	List results = query.getResultList();
 	Em.closeEntityManager(em);
 	if (!results.isEmpty()) {
@@ -42,19 +42,7 @@ public class WishListDao extends GenericDao<WishList> {
 
     @Override
     public boolean delete(WishList wishLists) throws SQLException {
-	EntityManager em = Em.createEntityManager();
-	try {
-
-	    em.getTransaction().begin();
-	    em.remove(wishLists);
-	    Em.closeEntityManager(em);
-
-	} catch (Exception e) {
-	    em.getTransaction().rollback();
-	    System.out.println("Errore: " + e.getMessage());
-	    return false;
-	}
-	return true;
+		return persistableDelete(wishLists);
     }
 
 }

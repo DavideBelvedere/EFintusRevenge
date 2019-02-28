@@ -13,7 +13,7 @@ public class MetodoPagamentoDao extends GenericDao<MetodoPagamento> {
 
     public MetodoPagamento getByName(String name) throws SQLException {
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select mp From metodo_pagamento mp WHERE mp.metodo_pagamento=:metodo_pagamento");
+	Query query = em.createQuery("select mp From MetodoPagamento mp WHERE mp.metodo_pagamento=:metodo_pagamento");
 	query.setParameter("metodo_pagamento", name);
 	MetodoPagamento results = (MetodoPagamento) query.getSingleResult();
 	Em.closeEntityManager(em);
@@ -26,7 +26,7 @@ public class MetodoPagamentoDao extends GenericDao<MetodoPagamento> {
     @Override
     public List<MetodoPagamento> getAll() throws SQLException {
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select mp From metodo_pagamento mp");
+	Query query = em.createQuery("select mp From MetodoPagamento mp");
 	List results = query.getResultList();
 	Em.closeEntityManager(em);
 	if (!results.isEmpty()) {
@@ -54,19 +54,7 @@ public class MetodoPagamentoDao extends GenericDao<MetodoPagamento> {
 
     @Override
     public boolean delete(MetodoPagamento metodoPagamento) throws SQLException {
-	EntityManager em = Em.createEntityManager();
-	try {
-
-	    em.getTransaction().begin();
-	    em.remove(metodoPagamento);
-	    Em.closeEntityManager(em);
-
-	} catch (Exception e) {
-	    em.getTransaction().rollback();
-	    System.out.println("Errore: " + e.getMessage());
-	    return false;
-	}
-	return true;
+		return persistableDelete(metodoPagamento);
 
     }
 }

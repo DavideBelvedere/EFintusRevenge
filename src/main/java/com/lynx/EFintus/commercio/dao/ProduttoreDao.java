@@ -18,7 +18,7 @@ public class ProduttoreDao extends GenericDao<Produttore> {
     @Override
     public List<Produttore> getAll() throws SQLException {
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select p From produttore p");
+	Query query = em.createQuery("select p From Produttore p");
 	List results = query.getResultList();
 	Em.closeEntityManager(em);
 	if (!results.isEmpty()) {
@@ -39,19 +39,7 @@ public class ProduttoreDao extends GenericDao<Produttore> {
 
     @Override
     public boolean delete(Produttore produttore) throws SQLException {
-	EntityManager em = Em.createEntityManager();
-	try {
-
-	    em.getTransaction().begin();
-	    em.remove(produttore);
-	    Em.closeEntityManager(em);
-
-	} catch (Exception e) {
-	    em.getTransaction().rollback();
-	    System.out.println("Errore: " + e.getMessage());
-	    return false;
-	}
-	return true;
+		return persistableDelete(produttore);
 
     }
 }

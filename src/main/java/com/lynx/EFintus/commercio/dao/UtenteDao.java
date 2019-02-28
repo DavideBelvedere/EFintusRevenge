@@ -19,7 +19,7 @@ public class UtenteDao extends GenericDao<Utente> {
     @Override
     public List<Utente> getAll() throws SQLException {
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select u From utente u");
+	Query query = em.createQuery("select u From Utente u");
 	List results = query.getResultList();
 	Em.closeEntityManager(em);
 	if (!results.isEmpty()) {
@@ -42,19 +42,7 @@ public class UtenteDao extends GenericDao<Utente> {
 
     @Override
     public boolean delete(Utente utente) throws SQLException {
-	EntityManager em = Em.createEntityManager();
-	try {
-
-	    em.getTransaction().begin();
-	    em.remove(utente);
-	    Em.closeEntityManager(em);
-
-	} catch (Exception e) {
-	    em.getTransaction().rollback();
-	    System.out.println("Errore: " + e.getMessage());
-	    return false;
-	}
-	return true;
+		return persistableDelete(utente);
     }
 
 }

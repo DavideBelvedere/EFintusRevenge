@@ -19,7 +19,7 @@ public class TagsDao extends GenericDao<Tags> {
     @Override
     public List<Tags> getAll() throws SQLException {
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select t From tags t");
+	Query query = em.createQuery("select t From Tags t");
 	List results = query.getResultList();
 	Em.closeEntityManager(em);
 	if (!results.isEmpty()) {
@@ -42,19 +42,7 @@ public class TagsDao extends GenericDao<Tags> {
 
     @Override
     public boolean delete(Tags tags) throws SQLException {
-	EntityManager em = Em.createEntityManager();
-	try {
-
-	    em.getTransaction().begin();
-	    em.remove(tags);
-	    Em.closeEntityManager(em);
-
-	} catch (Exception e) {
-	    em.getTransaction().rollback();
-	    System.out.println("Errore: " + e.getMessage());
-	    return false;
-	}
-	return true;
+		return persistableDelete(tags);
 
     }
 

@@ -18,7 +18,7 @@ public class OrdineDao extends GenericDao<Ordine> {
     @Override
     public List<Ordine> getAll() throws SQLException {
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select o From ordine o");
+	Query query = em.createQuery("select o From Ordine o");
 	List results = query.getResultList();
 	Em.closeEntityManager(em);
 	if (!results.isEmpty()) {
@@ -42,19 +42,7 @@ public class OrdineDao extends GenericDao<Ordine> {
 
     @Override
     public boolean delete(Ordine ordine) throws SQLException {
-	EntityManager em = Em.createEntityManager();
-	try {
-
-	    em.getTransaction().begin();
-	    em.remove(ordine);
-	    Em.closeEntityManager(em);
-
-	} catch (Exception e) {
-	    em.getTransaction().rollback();
-	    System.out.println("Errore: " + e.getMessage());
-	    return false;
-	}
-	return true;
+		return persistableDelete(ordine);
 
     }
 

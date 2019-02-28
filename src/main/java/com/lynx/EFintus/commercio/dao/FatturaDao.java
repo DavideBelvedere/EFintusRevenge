@@ -18,7 +18,7 @@ public class FatturaDao extends GenericDao<Fattura> {
     @Override
     public List<Fattura> getAll() throws SQLException {
 	EntityManager em = Em.createEntityManager();
-	Query query = em.createQuery("select f From fattura f");
+	Query query = em.createQuery("select f From Fattura f");
 	List results = query.getResultList();
 	Em.closeEntityManager(em);
 	if (!results.isEmpty()) {
@@ -41,19 +41,7 @@ public class FatturaDao extends GenericDao<Fattura> {
 
     @Override
     public boolean delete(Fattura fattura) throws SQLException {
-	EntityManager em = Em.createEntityManager();
-	try {
-
-	    em.getTransaction().begin();
-	    em.remove(fattura);
-	    Em.closeEntityManager(em);
-
-	} catch (Exception e) {
-	    em.getTransaction().rollback();
-	    System.out.println("Errore: " + e.getMessage());
-	    return false;
-	}
-	return true;
+		return persistableDelete(fattura);
 
     }
 

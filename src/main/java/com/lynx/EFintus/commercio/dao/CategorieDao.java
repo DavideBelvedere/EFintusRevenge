@@ -41,19 +41,7 @@ public class CategorieDao extends GenericDao<Categoria> {
 
     @Override
     public boolean delete(Categoria categoria) throws SQLException {
-	EntityManager em = Em.createEntityManager();
-	try {
-
-	    em.getTransaction().begin();
-	    em.remove(categoria);
-	    Em.closeEntityManager(em);
-
-	} catch (Exception e) {
-	    em.getTransaction().rollback();
-	    System.out.println("Errore: " + e.getMessage());
-	    return false;
-	}
-	return true;
+		return persistableDelete(categoria);
 
     }
 
