@@ -2,9 +2,11 @@ package logistica.dao.interfaces;
 
 import logistica.entities.Corriere;
 
+import java.util.List;
+
 public interface CorriereDao {
-    boolean saveCorriere(Corriere corriere);
-    boolean updateCorriere(Corriere corriere);
-    boolean deleteCorriere(Integer id_corriere);
+    void saveCorriere(Corriere corriere);
     Corriere getById(Integer id_corriere, boolean withRel);
+    List<Corriere> getAllCouriers();
+
 }

@@ -7,14 +7,14 @@ import logistica.entities.Lavoratore;
 import logistica.entities.Magazzino;
 import logistica.entities.Prodotto;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MagazzinoDaoImpl extends JpaDao<Magazzino, Integer> implements MagazzinoDao {
 
     private String baseQueryNoRel = "SELECT NEW Magazzino(m.id,m.via,m.citta,m.n_civico,m.cap,m.metratura,m.altezza,m.capacita,m.nome) FROM Magazzino m"; //JOIN FETCH c.ordini
+
+    private String baseQueryWithRel = "SELECT m from Magazzino m JOIN FETCH m.lavoratori";
 
     public MagazzinoDaoImpl() {
         super(Magazzino.class);
@@ -23,31 +23,22 @@ public class MagazzinoDaoImpl extends JpaDao<Magazzino, Integer> implements Maga
 
     @Override
     public Magazzino getById(Integer id, boolean withrel) {
-        EntityManager em = init();
-        String queryString = baseQueryNoRel;
+        String queryString;
         if (withrel) {
-            queryString += " JOIN FETCH m.lavoratori, m.disponibilita";
+            queryString = baseQueryWithRel;
+        } else {
+            queryString = baseQueryNoRel;
         }
         queryString += " WHERE m.id=:id";
+        return getByIdQuery(queryString, id);
 
-        Query query = em.createQuery(queryString);
-        query.setParameter("id", id);
-
-        List<Magazzino> results;
-        results = query.getResultList();
-        Magazzino result;
-        if (results.isEmpty()) {
-            results = null;
-        }
-
-        return results.get(0);
 
 
     }
 
     @Override
     public List<Prodotto> getAllProductInWarehouse(Integer id_magazzino) {
-        Magazzino magazzino = getByIdUtil(id_magazzino);
+        Magazzino magazzino = getById(id_magazzino, true);
         if (magazzino != null && magazzino.getDisponibilita() != null) {
             List<Prodotto> prodotti = new ArrayList<>();
             for (Disponibilita disponibilita : magazzino.getDisponibilita()) {
@@ -66,7 +57,7 @@ public class MagazzinoDaoImpl extends JpaDao<Magazzino, Integer> implements Maga
 
     @Override
     public List<Lavoratore> getAllWorkersInWarehouse(Integer id_magazzino) {
-        Magazzino magazzino = getByIdUtil(id_magazzino);
+        Magazzino magazzino = getById(id_magazzino, true);
         if (magazzino != null && magazzino.getLavoratori() != null) {
             return magazzino.getLavoratori();
         }
@@ -75,15 +66,8 @@ public class MagazzinoDaoImpl extends JpaDao<Magazzino, Integer> implements Maga
 
     @Override
     public List<Magazzino> getAllWarehouse() {
-        EntityManager em = init();
-        List<Magazzino> results;
-        Query query = em.createQuery(baseQueryNoRel);
-        results = query.getResultList();
-        if (results.isEmpty()) {
-            results = null;
-        }
 
-        return results;
+        return getAll(baseQueryNoRel);
     }
 
 

@@ -3,6 +3,8 @@ package logistica.dao.interfaces;
 import logistica.entities.Corriere;
 import logistica.entities.Ordine;
 
+import java.util.List;
+
 public interface OrdineDao {
 
     /***
@@ -11,13 +13,15 @@ public interface OrdineDao {
      * @param withRel with a true value also the courier is writed on db, with false the relation is not writed
      * @return true if the save is gone fine, in case of exception return false
      */
-    boolean saveOrdine(Ordine ordine, boolean withRel);
+    void saveOrdine(Ordine ordine, boolean withRel);
 
-    boolean updateOrdine(Ordine ordine);
+    void updateOrdine(Ordine ordine);
 
-    boolean deleteOrdine(Integer id_ordine);
+    void deleteOrdine(Integer id_ordine);
 
-    Ordine getById(Integer id_ordine);
+    Ordine getById(Integer id_ordine, boolean withRel);
 
     Corriere getCourierOfOrder(Integer id_ordine);
+
+    List<Ordine> getAllOrders();
 }

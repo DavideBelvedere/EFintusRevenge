@@ -1,5 +1,7 @@
 package logistica.entities;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -20,10 +22,12 @@ public class Fornitura {
     @Temporal(TemporalType.DATE)
     private Date date;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_prodotto")
     private Prodotto prodotto;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "id_fornitore")
     private Fornitore fornitore;

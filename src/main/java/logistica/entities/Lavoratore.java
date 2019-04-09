@@ -1,6 +1,8 @@
 package logistica.entities;
 
+
 import logistica.entities.superType.Orm;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -39,6 +41,7 @@ public class Lavoratore implements Orm {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_magazzino")
+    @JsonIgnore
     private Magazzino magazzino;
 
     // @ManyToMany(mappedBy = "lavoratori") //non permette di inserire i prodotti e la relazione persistendo l'entità lavoratore
@@ -50,6 +53,7 @@ public class Lavoratore implements Orm {
             joinColumns = @JoinColumn(name = "codice_fiscale"),
             inverseJoinColumns = @JoinColumn(name = "id_permesso")
     )
+    @JsonIgnore
     private List<Permesso> permessi = new ArrayList<Permesso>();
 
     public Lavoratore() {

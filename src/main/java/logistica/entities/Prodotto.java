@@ -1,6 +1,7 @@
 package logistica.entities;
 
 import logistica.entities.superType.Orm;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,9 +18,11 @@ public class Prodotto implements Orm {
     @Column(name = "nome")
     private String nome;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "prodotto", cascade = CascadeType.ALL)
     private List<Fornitura> forniture = new ArrayList<Fornitura>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "primaryKey.prodotto", cascade = CascadeType.ALL)
     private List<Disponibilita> disponibilita = new ArrayList<Disponibilita>();
 

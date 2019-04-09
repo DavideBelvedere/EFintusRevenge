@@ -1,6 +1,7 @@
 package logistica.entities;
 
 import logistica.entities.superType.Orm;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class Permesso implements Orm {
     @Column(name = "tipo", length = 20)
     private String tipo;
 
-
+    @JsonIgnore
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE

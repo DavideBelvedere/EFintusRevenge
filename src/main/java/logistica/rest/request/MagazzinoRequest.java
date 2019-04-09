@@ -151,4 +151,5 @@ public class MagazzinoRequest implements Serializable {
     public void addDisponibilita(Disponibilita disponibilita) {
         this.disponibilita.add(disponibilita);
     }
+
 }

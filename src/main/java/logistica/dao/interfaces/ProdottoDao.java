@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface ProdottoDao {
 
-    Prodotto getById(Integer id);
+    Prodotto getById(Integer id, boolean withRel);
 
     /***
      *
@@ -21,4 +21,6 @@ public interface ProdottoDao {
     Integer getProductAvailability(Integer id_prodotto);
 
     List<Fornitura> getSuppliesOfProduct(Integer id_prodotto);
+
+
 }

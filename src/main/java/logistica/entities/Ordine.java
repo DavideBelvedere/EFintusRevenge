@@ -1,6 +1,7 @@
 package logistica.entities;
 
 import logistica.entities.superType.Orm;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -18,6 +19,7 @@ public class Ordine implements Orm {
     // the entities relationed for lazy they dug up the values when you effectively call them
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_corriere")
+    @JsonIgnore
     private Corriere corriere;
 
     @Column(name = "id_trasporto")

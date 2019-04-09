@@ -1,10 +1,9 @@
 package restServicesConf;
 
+import logistica.rest.endPoint.*;
+
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
-
-import logistica.rest.endPoint.MagazzinoEndPoint;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +13,11 @@ public class RestEasyServices extends Application {
 
     //aggiungere tutte le classi che espongono servizi al singleton
     public RestEasyServices() {
-    	singletons.add(new MagazzinoEndPoint());
+        singletons.add(new MagazzinoEndPoint());
+        singletons.add(new OrdineEndPoint());
+        singletons.add(new FornitoreEndPoint());
+        singletons.add(new CorriereEndPoint());
+        singletons.add(new ProdottoEndPoint());
     }
 
     @Override

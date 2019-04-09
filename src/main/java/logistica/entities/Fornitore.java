@@ -1,6 +1,7 @@
 package logistica.entities;
 
 import logistica.entities.superType.Orm;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class Fornitore implements Orm {
     @Column(name = "id_fornitore")
     private Integer id;
 
-    @Column(name = "name", length = 100)
+    @Column(name = "nome", length = 100)
     private String name;
 
     @Column(name = "via", length = 100)
@@ -29,6 +30,7 @@ public class Fornitore implements Orm {
     @Column(name = "cap", length = 6)
     private String cap;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "fornitore", cascade = CascadeType.ALL)
     private List<Fornitura> forniture = new ArrayList<Fornitura>();
 
